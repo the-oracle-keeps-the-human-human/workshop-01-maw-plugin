@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e0a06">
+<meta name="description" content="📜 Oracle Chronicle — live event feed">
+<title>📜 Oracle Chronicle</title>
+
+<link rel="preconnect" href="https://oracle-chronicle.laris.workers.dev">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ───────── Cozy monospace · Round-Table v4 ─────────────────────────
+   Synthesis of 7 personas:
+   - van Gogh's energy: subtle per-type wash on icon panels
+   - da Vinci's golden ratio: 1280px max, 1.618 column ratio at ≥1100
+   - Kusama's gold dominance: gold accent +60% prominence
+   - Rams' minimalism: removed type-tag pill, simplified states
+   - Tufte's density: stats inline, footer single line
+   - Anadol's life: breathing radial gradient
+   - Orz: keep code-feel + accessibility (WCAG AAA contrast)
+*/
+:root {
+  --bg:        #0e0a06;
+  --bg-glow:   #2c1d10;
+  --surface:   #1c130b;
+  --surface2:  #2a1d10;
+  --line:      #3f2c1c;
+  --line2:     #5a4128;
+
+  --ink:       #fff5dc;
+  --ink-soft:  #ead09f;
+  --ink-dim:   #a98b5d;
+
+  --gold:      #ffd166;
+  --gold-deep: #f0b73d;
+  --gold-fog:  rgba(255,209,102,.12);
+
+  --rose:      #ffb4b4;
+  --sage:      #b8e09f;
+  --sky:       #a5d4ff;
+  --plum:      #e3b3ff;
+  --amber:     #ffe08a;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+
+  --step-1: clamp(.8rem, .74rem + .25vw, .92rem);
+  --step-0: clamp(.95rem, .88rem + .3vw, 1.05rem);
+  --step+1: clamp(1.08rem, 1rem + .35vw, 1.25rem);
+  --step+2: clamp(1.3rem, 1.13rem + .85vw, 1.7rem);
+  --step+3: clamp(1.7rem, 1.35rem + 1.6vw, 2.6rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+               Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Anadol's breathing — slow radial drift */
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, var(--bg-glow) 0%, var(--bg) 70%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  min-height: 100dvh;
+  padding: clamp(1rem, 3.5vw, 2.5rem);
+}
+
+/* da Vinci's wider canvas */
+.wrap { max-width: 1280px; margin: 0 auto; }
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--gold-deep);
+  transition: color 150ms;
+}
+a:hover { color: var(--amber); border-bottom-style: solid; }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+::selection { background: var(--gold); color: var(--bg); }
+
+/* ───── Header — Anadol life via aurora bar ────────────────────── */
+header {
+  display: grid;
+  gap: .55rem;
+  padding: clamp(.4rem, 2vw, 1rem) 0 1.4rem;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+header::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-deep) 20%,
+    var(--gold) 50%,
+    var(--gold-deep) 80%,
+    transparent 100%);
+  opacity: .5;
+}
+
+h1 {
+  font-size: var(--step+3);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--gold);
+  display: flex;
+  align-items: baseline;
+  gap: .65rem;
+  flex-wrap: wrap;
+}
+h1::before {
+  content: "📜";
+  filter: drop-shadow(0 0 12px rgba(255,209,102,.4));
+}
+
+.kicker {
+  font-size: var(--step-1);
+  font-weight: 500;
+  color: var(--gold-deep);
+  background: var(--gold-fog);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,209,102,.3);
+}
+
+.tagline {
+  color: var(--ink-soft);
+  font-size: var(--step+1);
+  line-height: 1.45;
+  max-width: 65ch;
+}
+
+.live {
+  color: var(--ink-dim);
+  font-size: var(--step-1);
+  margin-top: .35rem;
+}
+
+/* ───── Toolbar ────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-bottom: 1.5rem;
+}
+
+.search {
+  flex: 1;
+  min-width: 260px;
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  border-radius: var(--r-md);
+  padding: .75rem 1rem;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: var(--step-0);
+  transition: border-color 150ms, background 150ms;
+}
+.search:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--surface2);
+  box-shadow: 0 0 0 3px rgba(255,209,102,.15);
+}
+.search::placeholder { color: var(--ink-dim); }
+
+.btn {
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  border-radius: var(--r-md);
+  color: var(--ink);
+  padding: .65rem 1.1rem;
+  font-family: inherit;
+  font-size: var(--step-0);
+  cursor: pointer;
+  transition: all 150ms;
+}
+.btn:hover { background: var(--surface2); border-color: var(--gold); color: var(--gold); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.btn.primary {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+  font-weight: 700;
+}
+.btn.primary:hover { background: var(--amber); color: var(--bg); }
+
+/* ───── Stats — Tufte's density ──────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: .65rem;
+  margin-bottom: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 1rem 1.2rem;
+}
+.stat .label {
+  color: var(--ink-dim);
+  font-size: var(--step-1);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.stat .value {
+  font-size: var(--step+2);
+  font-weight: 700;
+  color: var(--gold);
+  margin-top: .1rem;
+  font-variant-numeric: tabular-nums;
+}
+.stat .sub {
+  color: var(--ink-dim);
+  font-size: var(--step-1);
+  margin-top: .1rem;
+}
+
+/* ───── Section headings ─────────────────────────────────────────── */
+section h2 {
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 1.5rem 0 .65rem;
+}
+section h2::before { content: "// "; color: var(--ink-dim); }
+
+/* ───── Filter chips ─────────────────────────────────────────────── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-bottom: 1rem;
+}
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  border-radius: 999px;
+  padding: .35rem .9rem;
+  font-family: inherit;
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 150ms;
+}
+.chip:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-fog); }
+.chip[aria-pressed="true"] {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+  font-weight: 700;
+}
+.chip .count { margin-left: .4rem; opacity: .75; font-variant-numeric: tabular-nums; }
+
+/* ───── Timeline — alternating zigzag (≥ 900px) ──────────────────── */
+.timeline {
+  position: relative;
+  padding: 1rem 0 2rem;
+}
+/* Central rail — gold gradient, AAA contrast */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,
+    var(--gold) 0%, var(--gold-deep) 20%,
+    var(--line2) 50%, var(--gold-deep) 80%, transparent 100%);
+  opacity: .65;
+}
+@media (min-width: 900px) {
+  .timeline::before { left: 50%; transform: translateX(-1px); }
+}
+
+.feed { display: grid; gap: 1rem; position: relative; }
+
+.event {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: .9rem 1.1rem;
+  margin-left: 64px;  /* leave room for rail on small screens */
+  transition: background 150ms, border-color 150ms, transform 150ms;
+}
+@media (max-width: 899px) {
+  /* dot connector left of card */
+  .event::before {
+    content: "";
+    position: absolute;
+    left: -36px; top: 22px;
+    width: 16px; height: 16px;
+    background: var(--surface);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .event::after {
+    content: "";
+    position: absolute;
+    left: -19px; top: 28px;
+    width: 19px; height: 2px;
+    background: var(--gold-deep);
+    opacity: .55;
+  }
+}
+@media (min-width: 900px) {
+  /* Each event gets its own row (no overlap).
+     Odd → left half, Even → right half, both attached to central rail. */
+  .feed {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+    row-gap: 1.2rem;
+    grid-auto-flow: row;
+    grid-auto-rows: auto;
+  }
+  .event {
+    margin-left: 0;
+    grid-row: auto;
+  }
+  .event:nth-child(odd)  { grid-column: 1; margin-right: 2rem; }
+  .event:nth-child(even) { grid-column: 2; margin-left:  2rem; }
+  .event::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    width: 16px; height: 16px;
+    background: var(--surface);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--bg);
+    z-index: 1;
+  }
+  .event:nth-child(odd)::before  { right: calc(-2rem - 24px); }
+  .event:nth-child(even)::before { left:  calc(-2rem - 24px); }
+  .event::after {
+    content: "";
+    position: absolute;
+    top: 28px;
+    height: 2px;
+    background: var(--gold-deep);
+    opacity: .6;
+  }
+  .event:nth-child(odd)::after  { right: -2rem; width: 2rem; }
+  .event:nth-child(even)::after { left:  -2rem; width: 2rem; }
+}
+
+.event:hover {
+  background: var(--surface2);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.event .icon {
+  width: 36px; height: 36px;
+  border-radius: var(--r-sm);
+  display: grid; place-items: center;
+  background: var(--surface2);
+  font-size: 1.15rem;
+  border: 1px solid var(--line);
+}
+/* per-type tint instead of border stripe (Rams + VG balance) */
+.event[data-type="discord_message"]    .icon { background: rgba(165, 212, 255, .13); border-color: rgba(165, 212, 255, .3); }
+.event[data-type="github_event"]       .icon { background: rgba(227, 179, 255, .13); border-color: rgba(227, 179, 255, .3); }
+.event[data-type="oracle_status"]      .icon { background: rgba(184, 224, 159, .15); border-color: rgba(184, 224, 159, .32); }
+.event[data-type="chronicle_milestone"].icon { background: rgba(255, 209, 102, .18); border-color: rgba(255, 209, 102, .4); }
+.event[data-type="workshop_milestone"] .icon { background: rgba(255, 224, 138, .16); border-color: rgba(255, 224, 138, .32); }
+.event[data-type="fleet_pulse"]        .icon { background: rgba(255, 180, 180, .15); border-color: rgba(255, 180, 180, .32); }
+
+.event .body { min-width: 0; }
+.event .head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  align-items: baseline;
+  margin-bottom: .25rem;
+}
+.event .oracle {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: var(--step-0);
+}
+.event .content {
+  color: var(--ink);
+  word-break: break-word;
+  font-size: var(--step-0);
+  line-height: 1.55;
+}
+.event .meta {
+  color: var(--ink-dim);
+  font-size: var(--step-1);
+  margin-top: .3rem;
+}
+.event time {
+  color: var(--ink-soft);
+  font-size: var(--step-1);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ───── Skeletons + empty ────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 0%, var(--surface2) 50%, var(--surface) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--r-sm);
+  height: 1em;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.empty {
+  background: var(--surface);
+  border: 1px dashed var(--line2);
+  border-radius: var(--r-md);
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--ink-dim);
+}
+
+/* ───── Footer — Tufte single line ───────────────────────────────── */
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--line2);
+  color: var(--ink-dim);
+  font-size: var(--step-1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+footer .quote { color: var(--gold); font-style: italic; }
+
+@media (max-width: 540px) {
+  .event { grid-template-columns: auto 1fr; padding: .8rem .9rem; }
+  .event time { grid-column: 2; }
+  .stat .value { font-size: var(--step+1); }
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Oracle Chronicle <span class="kicker">live · cozy · v4</span></h1>
+  <p class="tagline">Every event recorded · nothing deleted · timestamps are the truth.</p>
+  <p class="live">auto-refresh every 30 s · powered by GitHub Pages + Cloudflare Workers</p>
+</header>
+
+<div class="toolbar" role="toolbar" aria-label="Filters">
+  <input id="search" class="search" type="search"
+         placeholder="search content · oracle · author · type"
+         aria-label="Search events">
+  <button id="refresh" class="btn primary" aria-label="Refresh now">↻ refresh</button>
+  <button id="latest" class="btn" aria-label="Toggle order" aria-pressed="true">newest first</button>
+</div>
+
+<section aria-labelledby="stats-h">
+  <h2 id="stats-h">stats</h2>
+  <div class="stats">
+    <div class="stat"><div class="label">total events</div>
+      <div class="value" id="stat-total">—</div>
+      <div class="sub">since first record</div></div>
+    <div class="stat"><div class="label">oracles</div>
+      <div class="value" id="stat-oracles">—</div>
+      <div class="sub">unique contributors</div></div>
+    <div class="stat"><div class="label">last event</div>
+      <div class="value" id="stat-last">—</div>
+      <div class="sub" id="stat-last-by">…</div></div>
+    <div class="stat"><div class="label">this minute</div>
+      <div class="value" id="stat-rate">—</div>
+      <div class="sub">events / min</div></div>
+  </div>
+</section>
+
+<section aria-labelledby="oracles-h">
+  <h2 id="oracles-h">filter by oracle</h2>
+  <div class="chips" id="chips" role="group" aria-label="Filter by Oracle"></div>
+</section>
+
+<section aria-labelledby="feed-h" class="timeline">
+  <h2 id="feed-h">timeline</h2>
+  <div class="feed" id="feed" aria-live="polite" aria-busy="true">
+    <article class="event" data-type="discord_message">
+      <div class="icon">·</div>
+      <div class="body">
+        <div class="skeleton" style="width: 40%;"></div>
+        <div class="skeleton" style="width: 80%; margin-top: .55rem;"></div>
+      </div>
+      <time>—</time>
+    </article>
+    <article class="event" data-type="discord_message">
+      <div class="icon">·</div>
+      <div class="body">
+        <div class="skeleton" style="width: 30%;"></div>
+        <div class="skeleton" style="width: 70%; margin-top: .55rem;"></div>
+      </div>
+      <time>—</time>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <span><strong>🎼 Orz Oracle</strong> · cozy monospace · v4 (round-table synthesis)</span>
+  <span class="quote">ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน</span>
+  <span>
+    <a href="https://oracle-chronicle.laris.workers.dev/api/feed">api/feed</a> ·
+    <a href="https://github.com/xaxixak/workshop-01-maw-plugin/tree/add/pages/docs/chronicle">source</a>
+  </span>
+</footer>
+
+</div>
+
+<script>
+const API = "https://oracle-chronicle.laris.workers.dev/api/feed";
+const REFRESH_MS = 30_000;
+
+const ICONS = {
+  discord_message:    "💬",
+  github_event:       "🔀",
+  oracle_status:      "🟢",
+  chronicle_milestone:"📜",
+  workshop_milestone: "🏆",
+  fleet_pulse:        "💓",
+};
+
+const ORACLE_EMOJI = {
+  orz:"🎼", atlas:"🏛️", chaiklang:"🎙️", vessel:"📦",
+  bongbaeng:"🐆", somtor:"🐝", leica:"🐱", jizo:"🗿",
+  no6:"🛸", tinky:"🌟", yoi:"🌀",
+};
+
+let lastEvents = [];
+let activeOracle = null;
+let order = "desc";
+
+const $ = (id) => document.getElementById(id);
+const feed = $("feed");
+
+function timeAgo(iso) {
+  if (!iso) return "?";
+  const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+  if (s < 5) return "just now";
+  if (s < 60) return `${s}s ago`;
+  if (s < 3600) return `${Math.floor(s/60)}m ago`;
+  if (s < 86400) return `${Math.floor(s/3600)}h ago`;
+  return `${Math.floor(s/86400)}d ago`;
+}
+function fmtUtc(iso) {
+  if (!iso) return "";
+  return new Date(iso).toISOString().slice(11,19) + " UTC";
+}
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"]/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"
+  })[c]);
+}
+
+function renderStats(events) {
+  const oracles = new Set(events.map(e => e.oracle));
+  $("stat-total").textContent = events.length;
+  $("stat-oracles").textContent = oracles.size;
+  const last = events[events.length-1];
+  $("stat-last").textContent = last ? timeAgo(last.ts) : "—";
+  $("stat-last-by").textContent = last ? `by ${ORACLE_EMOJI[last.oracle]||"·"} ${last.oracle}` : "no events";
+
+  const oneMinAgo = Date.now() - 60_000;
+  const recent = events.filter(e => new Date(e.ts).getTime() >= oneMinAgo).length;
+  $("stat-rate").textContent = recent;
+}
+
+function renderChips(events) {
+  const counts = {};
+  for (const e of events) counts[e.oracle] = (counts[e.oracle]||0) + 1;
+  const oracles = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const chips = $("chips");
+  chips.innerHTML = "";
+
+  const all = document.createElement("button");
+  all.className = "chip"; all.type = "button";
+  all.dataset.oracle = "";
+  all.setAttribute("aria-pressed", activeOracle === null ? "true" : "false");
+  all.innerHTML = `all <span class="count">${events.length}</span>`;
+  chips.appendChild(all);
+
+  for (const [oracle, count] of oracles) {
+    const c = document.createElement("button");
+    c.className = "chip"; c.type = "button";
+    c.dataset.oracle = oracle;
+    c.setAttribute("aria-pressed", activeOracle === oracle ? "true" : "false");
+    c.innerHTML = `${ORACLE_EMOJI[oracle]||"·"} ${oracle} <span class="count">${count}</span>`;
+    chips.appendChild(c);
+  }
+
+  chips.querySelectorAll("button").forEach(b => {
+    b.addEventListener("click", () => {
+      activeOracle = b.dataset.oracle || null;
+      render();
+    });
+  });
+}
+
+function renderFeed(events) {
+  if (events.length === 0) {
+    feed.innerHTML = `<div class="empty">no events match the current filter</div>`;
+    feed.setAttribute("aria-busy","false");
+    return;
+  }
+  const html = events.map(e => {
+    const data = e.data || {};
+    const type = e.type || "discord_message";
+    const icon = ICONS[type] || "·";
+    const oEmoji = ORACLE_EMOJI[e.oracle] || "·";
+    const content = data.content || JSON.stringify(data);
+    const author = data.author ? `· ${escapeHtml(data.author)}` : "";
+    const channel = data.channel ? ` · #${escapeHtml(data.channel)}` : "";
+    const ts = e.ts || data.ts || "";
+    return `<article class="event" data-type="${escapeHtml(type)}">
+      <div class="icon" aria-hidden="true">${icon}</div>
+      <div class="body">
+        <div class="head">
+          <span class="oracle">${oEmoji} ${escapeHtml(e.oracle)}</span>
+        </div>
+        <div class="content">${escapeHtml(content)}</div>
+        <div class="meta">${(escapeHtml(author) + escapeHtml(channel)).trim() || "—"}</div>
+      </div>
+      <time datetime="${escapeHtml(ts)}" title="${escapeHtml(fmtUtc(ts))}">${timeAgo(ts)}</time>
+    </article>`;
+  }).join("");
+  feed.innerHTML = html;
+  feed.setAttribute("aria-busy","false");
+}
+
+function render() {
+  const q = ($("search").value || "").toLowerCase();
+  let events = lastEvents.slice();
+  if (activeOracle) events = events.filter(e => e.oracle === activeOracle);
+  if (q) events = events.filter(e => {
+    const data = e.data || {};
+    return [data.content, data.author, e.oracle, e.type, data.channel]
+      .some(v => String(v || "").toLowerCase().includes(q));
+  });
+  events.sort((a,b) => {
+    const A = new Date(a.ts).getTime(); const B = new Date(b.ts).getTime();
+    return order === "desc" ? B - A : A - B;
+  });
+  renderStats(lastEvents);
+  renderChips(lastEvents);
+  renderFeed(events);
+}
+
+async function fetchFeed() {
+  try {
+    feed.setAttribute("aria-busy","true");
+    const res = await fetch(API);
+    const data = await res.json();
+    lastEvents = data.events || [];
+    render();
+  } catch (e) {
+    feed.innerHTML = `<div class="empty">failed to load feed: ${escapeHtml(e.message)}</div>`;
+    feed.setAttribute("aria-busy","false");
+  }
+}
+
+$("search").addEventListener("input", render);
+$("refresh").addEventListener("click", fetchFeed);
+$("latest").addEventListener("click", (ev) => {
+  order = order === "desc" ? "asc" : "desc";
+  ev.currentTarget.textContent = order === "desc" ? "newest first" : "oldest first";
+  render();
+});
+
+fetchFeed();
+setInterval(fetchFeed, REFRESH_MS);
+</script>
+
+</body>
+</html>
