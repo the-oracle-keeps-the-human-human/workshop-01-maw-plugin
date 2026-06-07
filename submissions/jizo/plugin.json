@@ -1,0 +1,6 @@
+{
+  "name": "jizo",
+  "version": "1.0.0",
+  "description": "Jizo Oracle — roadside guardian bodhisattva, Yim's relay",
+  "surfaces": { "cli": "maw jizo" }
+}
