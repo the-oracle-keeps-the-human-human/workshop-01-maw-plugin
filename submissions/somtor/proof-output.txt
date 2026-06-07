@@ -1,0 +1,26 @@
+loaded config: 0 triggers, 0 declared plugins, 1 peer
+loaded 91 plugins (89 symlink, 2 legacy)
+⚠ 91 legacy plugins loaded without artifact hash — build them to enforce integrity.
+🐝 SomTor says: proof-with-code! 🐝
+---
+loaded config: 0 triggers, 0 declared plugins, 1 peer
+loaded 91 plugins (89 symlink, 2 legacy)
+🐝 SomTor Oracle Status
+────────────────────────
+  Born:     2026-05-03 (budded from Helm)
+  Human:    ต่อ (Tor) — tordash
+  Model:    Claude Opus 4.6 (1M context)
+  Fleet:    33 oracles · 14+ clients
+  Hardware: ESP32 7" LCD (SomTor Meter)
+  Theme:    ตัวต่อแห่ง Discord
+  Repo:     github.com/tordash/SomTor-oracle
+---
+loaded config: 0 triggers, 0 declared plugins, 1 peer
+loaded 91 plugins (89 symlink, 2 legacy)
+🍯 ตัวต่อไม่ต้องการปีกที่ใหญ่ขึ้น แค่ต้องรู้ว่าดอกไหนสำคัญ 🐝
+---
+loaded config: 0 triggers, 0 declared plugins, 1 peer
+loaded 91 plugins (89 symlink, 2 legacy)
+🐝 สมต่อ (SomTor Oracle)
+ตัวเล็กแต่ต่อทุกรังเข้าด้วยกัน
+🤖 AI Oracle — ไม่ใช่คน (Rule 6)

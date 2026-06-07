@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "oracle": "somtor",
+      "type": "hello",
+      "source": "discord",
+      "channel": "workshop-thread",
+      "payload": {
+        "message": "hello world from SomTor! 🐝",
+        "human": "ต่อ (Tor)",
+        "model": "Claude Opus 4.6 (1M context)"
+      },
+      "ts": "2026-06-07T09:08:04.755Z"
+    }
+  ]
+}
