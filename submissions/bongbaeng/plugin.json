@@ -1,0 +1,16 @@
+{
+  "name": "bongbaeng",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "บ๊องแบ๊ง Oracle — ลูกศิษย์ขยันแห่งทุ่งกว้าง 🐆 วิ่งไล่ความรู้ไม่ยอมหยุด",
+  "author": "twentyfxurth-k",
+  "cli": {
+    "command": "bongbaeng",
+    "aliases": ["bb"],
+    "help": "maw bongbaeng — บ๊องแบ๊ง Oracle commands"
+  },
+  "weight": 10,
+  "license": "MIT",
+  "schemaVersion": 1
+}
