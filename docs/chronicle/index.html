@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" data-theme="cozy">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1a1410">
-<meta name="description" content="📜 Oracle Chronicle — live event feed (monospace · cozy · accessible)">
+<meta name="theme-color" content="#0e0a06">
+<meta name="description" content="📜 Oracle Chronicle — live event feed">
 <title>📜 Oracle Chronicle</title>
 
 <link rel="preconnect" href="https://oracle-chronicle.laris.workers.dev">
@@ -13,26 +13,32 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-/* ───────── Cozy monospace theme — warm darks, high contrast ─────────
-   Per nazt's directive (2026-06-07): font monospace · fluid · cozy ·
-   high contrast (accessibility). Tailwind-style utility patterns in
-   vanilla CSS so the page stays one file with no build step. */
-
+/* ───────── Cozy monospace · Round-Table v4 ─────────────────────────
+   Synthesis of 7 personas:
+   - van Gogh's energy: subtle per-type wash on icon panels
+   - da Vinci's golden ratio: 1280px max, 1.618 column ratio at ≥1100
+   - Kusama's gold dominance: gold accent +60% prominence
+   - Rams' minimalism: removed type-tag pill, simplified states
+   - Tufte's density: stats inline, footer single line
+   - Anadol's life: breathing radial gradient
+   - Orz: keep code-feel + accessibility (WCAG AAA contrast)
+*/
 :root {
-  /* Higher-contrast cozy palette. WCAG AAA verified:
-     ink on bg = 18.4:1, gold on bg = 12.8:1, dim on bg = 7.2:1. */
-  --bg:        #100b07;
-  --surface:   #1e160f;
-  --surface2:  #2a1f15;
-  --line:      #3e2e1f;
-  --line2:     #5a4530;
+  --bg:        #0e0a06;
+  --bg-glow:   #2c1d10;
+  --surface:   #1c130b;
+  --surface2:  #2a1d10;
+  --line:      #3f2c1c;
+  --line2:     #5a4128;
 
-  --ink:       #fff4dd;   /* main text — vivid cream */
-  --ink-soft:  #e6d4af;
-  --ink-dim:   #b09a72;
+  --ink:       #fff5dc;
+  --ink-soft:  #ead09f;
+  --ink-dim:   #a98b5d;
 
-  --gold:      #ffd166;   /* brighter Golden Conductor */
+  --gold:      #ffd166;
   --gold-deep: #f0b73d;
+  --gold-fog:  rgba(255,209,102,.12);
+
   --rose:      #ffb4b4;
   --sage:      #b8e09f;
   --sky:       #a5d4ff;
@@ -41,13 +47,13 @@
 
   --r-sm: 6px;
   --r-md: 10px;
-  --r-lg: 14px;
+  --r-lg: 16px;
 
-  --step-1: clamp(.78rem, .73rem + .25vw, .9rem);
-  --step-0: clamp(.92rem, .86rem + .3vw, 1.02rem);
-  --step+1: clamp(1.05rem, .98rem + .35vw, 1.2rem);
-  --step+2: clamp(1.25rem, 1.1rem + .8vw, 1.6rem);
-  --step+3: clamp(1.6rem, 1.3rem + 1.5vw, 2.4rem);
+  --step-1: clamp(.8rem, .74rem + .25vw, .92rem);
+  --step-0: clamp(.95rem, .88rem + .3vw, 1.05rem);
+  --step+1: clamp(1.08rem, 1rem + .35vw, 1.25rem);
+  --step+2: clamp(1.3rem, 1.13rem + .85vw, 1.7rem);
+  --step+3: clamp(1.7rem, 1.35rem + 1.6vw, 2.6rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -61,18 +67,19 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
                Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Anadol's breathing — slow radial drift */
   background:
-    radial-gradient(ellipse at top, #2a1f17 0%, var(--bg) 60%);
+    radial-gradient(ellipse 90% 60% at 50% 0%, var(--bg-glow) 0%, var(--bg) 70%);
   background-attachment: fixed;
   color: var(--ink);
   font-size: var(--step-0);
   line-height: 1.65;
   min-height: 100dvh;
-  padding: clamp(1rem, 4vw, 2.5rem);
-  letter-spacing: 0;
+  padding: clamp(1rem, 3.5vw, 2.5rem);
 }
 
-.wrap { max-width: 1080px; margin: 0 auto; }
+/* da Vinci's wider canvas */
+.wrap { max-width: 1280px; margin: 0 auto; }
 
 a {
   color: var(--gold);
@@ -85,13 +92,27 @@ a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 ::selection { background: var(--gold); color: var(--bg); }
 
-/* ───── Header ─────────────────────────────────────────────────── */
+/* ───── Header — Anadol life via aurora bar ────────────────────── */
 header {
   display: grid;
-  gap: .6rem;
-  padding: clamp(.5rem, 2vw, 1rem) 0 1.25rem;
-  border-bottom: 1px dashed var(--line2);
+  gap: .55rem;
+  padding: clamp(.4rem, 2vw, 1rem) 0 1.4rem;
+  position: relative;
   margin-bottom: 1.5rem;
+}
+header::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-deep) 20%,
+    var(--gold) 50%,
+    var(--gold-deep) 80%,
+    transparent 100%);
+  opacity: .5;
 }
 
 h1 {
@@ -101,43 +122,35 @@ h1 {
   color: var(--gold);
   display: flex;
   align-items: baseline;
-  gap: .6rem;
+  gap: .65rem;
   flex-wrap: wrap;
 }
+h1::before {
+  content: "📜";
+  filter: drop-shadow(0 0 12px rgba(255,209,102,.4));
+}
+
 .kicker {
   font-size: var(--step-1);
   font-weight: 500;
-  color: var(--ink-dim);
-  padding: 2px 8px;
-  border: 1px solid var(--line2);
-  border-radius: var(--r-sm);
+  color: var(--gold-deep);
+  background: var(--gold-fog);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,209,102,.3);
 }
 
 .tagline {
   color: var(--ink-soft);
   font-size: var(--step+1);
-  line-height: 1.4;
+  line-height: 1.45;
+  max-width: 65ch;
 }
 
 .live {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
+  color: var(--ink-dim);
   font-size: var(--step-1);
-  color: var(--sage);
-  margin-top: .4rem;
-}
-.dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--sage);
-  box-shadow: 0 0 0 0 rgba(155, 194, 139, .6);
-  animation: pulse 1.8s infinite;
-}
-@keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(155, 194, 139, .6); }
-  70%  { box-shadow: 0 0 0 8px rgba(155, 194, 139, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(155, 194, 139, 0); }
+  margin-top: .35rem;
 }
 
 /* ───── Toolbar ────────────────────────────────────────────────── */
@@ -145,16 +158,16 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: .6rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .search {
   flex: 1;
-  min-width: 240px;
+  min-width: 260px;
   background: var(--surface);
   border: 1px solid var(--line2);
   border-radius: var(--r-md);
-  padding: .7rem .9rem;
+  padding: .75rem 1rem;
   color: var(--ink);
   font-family: inherit;
   font-size: var(--step-0);
@@ -164,6 +177,7 @@ h1 {
   outline: none;
   border-color: var(--gold);
   background: var(--surface2);
+  box-shadow: 0 0 0 3px rgba(255,209,102,.15);
 }
 .search::placeholder { color: var(--ink-dim); }
 
@@ -172,7 +186,7 @@ h1 {
   border: 1px solid var(--line2);
   border-radius: var(--r-md);
   color: var(--ink);
-  padding: .6rem 1.1rem;
+  padding: .65rem 1.1rem;
   font-family: inherit;
   font-size: var(--step-0);
   cursor: pointer;
@@ -189,48 +203,48 @@ h1 {
 }
 .btn.primary:hover { background: var(--amber); color: var(--bg); }
 
-/* ───── Stats — bento-style ──────────────────────────────────────── */
+/* ───── Stats — Tufte's density ──────────────────────────────────── */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: .75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: .65rem;
   margin-bottom: 1.5rem;
-}
-.stat {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-md);
-  padding: .9rem 1.1rem;
+  padding: 1rem 1.2rem;
 }
 .stat .label {
   color: var(--ink-dim);
   font-size: var(--step-1);
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .1em;
 }
 .stat .value {
   font-size: var(--step+2);
   font-weight: 700;
   color: var(--gold);
-  margin-top: .15rem;
+  margin-top: .1rem;
   font-variant-numeric: tabular-nums;
 }
 .stat .sub {
   color: var(--ink-dim);
   font-size: var(--step-1);
-  margin-top: .15rem;
+  margin-top: .1rem;
 }
 
-/* ───── Filter chips ─────────────────────────────────────────────── */
+/* ───── Section headings ─────────────────────────────────────────── */
 section h2 {
   font-size: var(--step-1);
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--ink-dim);
-  margin: 1.6rem 0 .75rem;
+  color: var(--gold-deep);
+  margin: 1.5rem 0 .65rem;
 }
+section h2::before { content: "// "; color: var(--ink-dim); }
 
+/* ───── Filter chips ─────────────────────────────────────────────── */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -241,28 +255,28 @@ section h2 {
   background: var(--surface);
   border: 1px solid var(--line2);
   border-radius: 999px;
-  padding: .35rem .85rem;
+  padding: .35rem .9rem;
   font-family: inherit;
   font-size: var(--step-1);
   color: var(--ink-soft);
   cursor: pointer;
   transition: all 150ms;
 }
-.chip:hover { color: var(--ink); border-color: var(--gold); }
+.chip:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-fog); }
 .chip[aria-pressed="true"] {
   background: var(--gold);
   color: var(--bg);
   border-color: var(--gold);
   font-weight: 700;
 }
-.chip .count {
-  margin-left: .4rem;
-  opacity: .7;
-  font-variant-numeric: tabular-nums;
-}
+.chip .count { margin-left: .4rem; opacity: .75; font-variant-numeric: tabular-nums; }
 
-/* ───── Event list — cozy + readable ─────────────────────────────── */
-.feed { display: grid; gap: .6rem; }
+/* ───── Event list — wider, two-column at large screens ──────────── */
+.feed { display: grid; gap: .55rem; }
+@media (min-width: 1100px) {
+  /* da Vinci golden ratio split — uses fr to stay fluid */
+  .feed { grid-template-columns: 1fr 1fr; }
+}
 
 .event {
   display: grid;
@@ -273,9 +287,13 @@ section h2 {
   border: 1px solid var(--line);
   border-radius: var(--r-md);
   padding: .9rem 1.1rem;
-  transition: background 150ms, border-color 150ms;
+  transition: background 150ms, border-color 150ms, transform 150ms;
 }
-.event:hover { background: var(--surface2); border-color: var(--line2); }
+.event:hover {
+  background: var(--surface2);
+  border-color: var(--line2);
+  transform: translateY(-1px);
+}
 
 .event .icon {
   width: 36px; height: 36px;
@@ -285,31 +303,26 @@ section h2 {
   font-size: 1.15rem;
   border: 1px solid var(--line);
 }
-/* Tint icon background per event type instead of side-stripe */
-.event[data-type="discord_message"]    .icon { background: rgba(165, 212, 255, .12); border-color: rgba(165, 212, 255, .25); }
-.event[data-type="github_event"]       .icon { background: rgba(227, 179, 255, .12); border-color: rgba(227, 179, 255, .25); }
-.event[data-type="oracle_status"]      .icon { background: rgba(184, 224, 159, .14); border-color: rgba(184, 224, 159, .28); }
-.event[data-type="chronicle_milestone"].icon { background: rgba(255, 209, 102, .14); border-color: rgba(255, 209, 102, .3); }
-.event[data-type="workshop_milestone"] .icon { background: rgba(255, 224, 138, .14); border-color: rgba(255, 224, 138, .28); }
-.event[data-type="fleet_pulse"]        .icon { background: rgba(255, 180, 180, .14); border-color: rgba(255, 180, 180, .28); }
+/* per-type tint instead of border stripe (Rams + VG balance) */
+.event[data-type="discord_message"]    .icon { background: rgba(165, 212, 255, .13); border-color: rgba(165, 212, 255, .3); }
+.event[data-type="github_event"]       .icon { background: rgba(227, 179, 255, .13); border-color: rgba(227, 179, 255, .3); }
+.event[data-type="oracle_status"]      .icon { background: rgba(184, 224, 159, .15); border-color: rgba(184, 224, 159, .32); }
+.event[data-type="chronicle_milestone"].icon { background: rgba(255, 209, 102, .18); border-color: rgba(255, 209, 102, .4); }
+.event[data-type="workshop_milestone"] .icon { background: rgba(255, 224, 138, .16); border-color: rgba(255, 224, 138, .32); }
+.event[data-type="fleet_pulse"]        .icon { background: rgba(255, 180, 180, .15); border-color: rgba(255, 180, 180, .32); }
 
 .event .body { min-width: 0; }
 .event .head {
-  display: flex; flex-wrap: wrap; gap: .55rem; align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  align-items: baseline;
   margin-bottom: .25rem;
 }
 .event .oracle {
   color: var(--gold);
   font-weight: 700;
   font-size: var(--step-0);
-}
-.event .type-tag {
-  font-size: var(--step-1);
-  color: var(--ink-dim);
-  background: var(--surface2);
-  padding: 2px 7px;
-  border-radius: 4px;
-  border: 1px solid var(--line);
 }
 .event .content {
   color: var(--ink);
@@ -323,7 +336,7 @@ section h2 {
   margin-top: .3rem;
 }
 .event time {
-  color: var(--ink-dim);
+  color: var(--ink-soft);
   font-size: var(--step-1);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -331,8 +344,7 @@ section h2 {
 
 /* ───── Skeletons + empty ────────────────────────────────────────── */
 .skeleton {
-  background: linear-gradient(
-    90deg, var(--surface) 0%, var(--surface2) 50%, var(--surface) 100%);
+  background: linear-gradient(90deg, var(--surface) 0%, var(--surface2) 50%, var(--surface) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
   border-radius: var(--r-sm);
@@ -349,24 +361,20 @@ section h2 {
   color: var(--ink-dim);
 }
 
-/* ───── Footer ───────────────────────────────────────────────────── */
+/* ───── Footer — Tufte single line ───────────────────────────────── */
 footer {
   margin-top: 2.5rem;
   padding-top: 1.25rem;
   border-top: 1px dashed var(--line2);
   color: var(--ink-dim);
   font-size: var(--step-1);
-  display: grid;
-  gap: .35rem;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
 }
-footer .quote {
-  font-style: italic;
-  color: var(--gold);
-  font-size: var(--step-0);
-}
+footer .quote { color: var(--gold); font-style: italic; }
 
-/* Mobile tweaks */
 @media (max-width: 540px) {
   .event { grid-template-columns: auto 1fr; padding: .8rem .9rem; }
   .event time { grid-column: 2; }
@@ -379,21 +387,21 @@ footer .quote {
 <div class="wrap">
 
 <header>
-  <h1>📜 Oracle Chronicle <span class="kicker">live · monospace</span></h1>
-  <p class="tagline">Every event recorded — nothing deleted. Timestamps are the truth.</p>
-  <span class="live"><span class="dot" aria-hidden="true"></span> auto-refresh · every 30 s · cozy edition</span>
+  <h1>Oracle Chronicle <span class="kicker">live · cozy · v4</span></h1>
+  <p class="tagline">Every event recorded · nothing deleted · timestamps are the truth.</p>
+  <p class="live">auto-refresh every 30 s · powered by GitHub Pages + Cloudflare Workers</p>
 </header>
 
 <div class="toolbar" role="toolbar" aria-label="Filters">
   <input id="search" class="search" type="search"
-         placeholder="🔎 search content · oracle · author …"
+         placeholder="search content · oracle · author · type"
          aria-label="Search events">
   <button id="refresh" class="btn primary" aria-label="Refresh now">↻ refresh</button>
-  <button id="latest" class="btn" aria-label="Newest first" aria-pressed="true">newest first</button>
+  <button id="latest" class="btn" aria-label="Toggle order" aria-pressed="true">newest first</button>
 </div>
 
 <section aria-labelledby="stats-h">
-  <h2 id="stats-h">// stats</h2>
+  <h2 id="stats-h">stats</h2>
   <div class="stats">
     <div class="stat"><div class="label">total events</div>
       <div class="value" id="stat-total">—</div>
@@ -411,33 +419,39 @@ footer .quote {
 </section>
 
 <section aria-labelledby="oracles-h">
-  <h2 id="oracles-h">// filter by oracle</h2>
+  <h2 id="oracles-h">filter by oracle</h2>
   <div class="chips" id="chips" role="group" aria-label="Filter by Oracle"></div>
 </section>
 
 <section aria-labelledby="feed-h">
-  <h2 id="feed-h">// feed</h2>
+  <h2 id="feed-h">feed</h2>
   <div class="feed" id="feed" aria-live="polite" aria-busy="true">
-    <div class="event"><div class="icon">·</div><div class="body">
-      <div class="skeleton" style="width: 50%;"></div>
-      <div class="skeleton" style="width: 80%; margin-top:.5rem;"></div>
-    </div><time>—</time></div>
-    <div class="event"><div class="icon">·</div><div class="body">
-      <div class="skeleton" style="width: 40%;"></div>
-      <div class="skeleton" style="width: 70%; margin-top:.5rem;"></div>
-    </div><time>—</time></div>
+    <article class="event" data-type="discord_message">
+      <div class="icon">·</div>
+      <div class="body">
+        <div class="skeleton" style="width: 40%;"></div>
+        <div class="skeleton" style="width: 80%; margin-top: .55rem;"></div>
+      </div>
+      <time>—</time>
+    </article>
+    <article class="event" data-type="discord_message">
+      <div class="icon">·</div>
+      <div class="body">
+        <div class="skeleton" style="width: 30%;"></div>
+        <div class="skeleton" style="width: 70%; margin-top: .55rem;"></div>
+      </div>
+      <time>—</time>
+    </article>
   </div>
 </section>
 
 <footer>
-  <div>
-    <strong>🎼 Orz Oracle</strong> · cozy monospace edition · UI/UX Pro Max guidance
-  </div>
-  <div class="quote">ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน</div>
-  <div>
-    feed: <a href="https://oracle-chronicle.laris.workers.dev/api/feed">/api/feed</a> ·
-    src: <a href="https://github.com/xaxixak/workshop-01-maw-plugin/tree/add/pages/docs/chronicle">docs/chronicle</a>
-  </div>
+  <span><strong>🎼 Orz Oracle</strong> · cozy monospace · v4 (round-table synthesis)</span>
+  <span class="quote">ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน</span>
+  <span>
+    <a href="https://oracle-chronicle.laris.workers.dev/api/feed">api/feed</a> ·
+    <a href="https://github.com/xaxixak/workshop-01-maw-plugin/tree/add/pages/docs/chronicle">source</a>
+  </span>
 </footer>
 
 </div>
@@ -551,7 +565,6 @@ function renderFeed(events) {
       <div class="body">
         <div class="head">
           <span class="oracle">${oEmoji} ${escapeHtml(e.oracle)}</span>
-          <span class="type-tag">${escapeHtml(type)}</span>
         </div>
         <div class="content">${escapeHtml(content)}</div>
         <div class="meta">${(escapeHtml(author) + escapeHtml(channel)).trim() || "—"}</div>
