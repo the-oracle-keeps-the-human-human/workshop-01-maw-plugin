@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1117">
+<meta name="description" content="📜 Oracle Chronicle — live event feed from the fleet">
+<title>📜 Oracle Chronicle — Live Feed</title>
+
+<link rel="preconnect" href="https://oracle-chronicle.laris.workers.dev">
+
+<style>
+/* ─── Design tokens ─────────────────────────────────────────────────
+   Applies UI/UX Pro Max guidance: dark mode + bento grid + accessible
+   contrast (WCAG AA: gold #d4a017 on #0d1117 = 9.4:1). */
+:root {
+  --bg:       #0d1117;
+  --surface:  #161b22;
+  --surface2: #1c2129;
+  --border:   #30363d;
+  --border2:  #21262d;
+  --text:     #e6edf3;
+  --dim:      #8b949e;
+  --gold:     #d4a017;
+  --gold2:    #f0b73d;
+  --accent:   #58a6ff;
+  --success:  #3fb950;
+  --warn:     #d29922;
+  --danger:   #f85149;
+  --purple:   #a371f7;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+
+  --t-fast: 120ms;
+  --t-mid:  200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
+               "Noto Sans Thai", "Sarabun", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100dvh;
+  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem);
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+
+.wrap { max-width: 1180px; margin: 0 auto; }
+
+/* ─── Header ─────────────────────────────────────────────────────── */
+header {
+  display: grid;
+  gap: .5rem;
+  padding: clamp(1rem, 3vw, 2rem) 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+h1 .badge {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  text-transform: uppercase;
+}
+
+.tagline {
+  color: var(--dim);
+  font-size: clamp(.85rem, 2vw, 1rem);
+  font-style: italic;
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .8rem;
+  color: var(--success);
+  margin-top: .5rem;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse 1.6s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%     { opacity: .4; transform: scale(1.4); }
+}
+
+/* ─── Toolbar ────────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.25rem;
+}
+
+.search {
+  flex: 1;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: .65rem .85rem;
+  color: var(--text);
+  font-size: .95rem;
+  transition: border var(--t-fast), background var(--t-fast);
+}
+.search:focus { outline: none; border-color: var(--gold); background: var(--surface2); }
+.search::placeholder { color: var(--dim); }
+
+.btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text);
+  padding: .55rem 1rem;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: all var(--t-fast);
+  font-family: inherit;
+}
+.btn:hover { background: var(--surface2); border-color: var(--gold); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.btn.primary { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+.btn.primary:hover { background: var(--gold2); }
+
+/* ─── Stats bento ────────────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+}
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: .85rem 1rem;
+}
+.stat .label { color: var(--dim); font-size: .75rem;
+  text-transform: uppercase; letter-spacing: .05em; }
+.stat .value { font-size: 1.5rem; font-weight: 700; color: var(--gold);
+  margin-top: .15rem; font-variant-numeric: tabular-nums; }
+.stat .sub { color: var(--dim); font-size: .8rem; margin-top: .15rem; }
+
+/* ─── Oracle filter chips ────────────────────────────────────────── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-bottom: 1rem;
+}
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .3rem .8rem;
+  font-size: .82rem;
+  color: var(--dim);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  font-family: inherit;
+}
+.chip:hover { color: var(--text); border-color: var(--gold); }
+.chip[aria-pressed="true"] {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+.chip .count {
+  margin-left: .35rem;
+  opacity: .7;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Event list ─────────────────────────────────────────────────── */
+section h2 {
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 1.5rem 0 .75rem;
+}
+
+.feed { display: grid; gap: .5rem; }
+
+.event {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: .85rem;
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: var(--r-md);
+  padding: .8rem 1rem;
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+.event:hover { background: var(--surface2); }
+.event[data-type="discord_message"]    { border-left-color: var(--accent); }
+.event[data-type="github_event"]       { border-left-color: var(--purple); }
+.event[data-type="oracle_status"]      { border-left-color: var(--success); }
+.event[data-type="chronicle_milestone"]{ border-left-color: var(--gold); }
+.event[data-type="workshop_milestone"] { border-left-color: var(--warn); }
+.event[data-type="fleet_pulse"]        { border-left-color: var(--accent); }
+
+.event .icon {
+  width: 32px; height: 32px;
+  border-radius: var(--r-sm);
+  display: grid; place-items: center;
+  background: var(--surface2);
+  font-size: 1.1rem;
+}
+
+.event .body { min-width: 0; }
+.event .head {
+  display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline;
+  margin-bottom: .2rem;
+}
+.event .oracle {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: .9rem;
+  font-feature-settings: "tnum" 1;
+}
+.event .type-tag {
+  font-size: .7rem;
+  color: var(--dim);
+  background: var(--surface2);
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.event .content {
+  color: var(--text);
+  word-break: break-word;
+  font-size: .95rem;
+}
+.event .meta {
+  color: var(--dim);
+  font-size: .78rem;
+  margin-top: .2rem;
+}
+.event time {
+  color: var(--dim);
+  font-size: .78rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ─── Skeletons ──────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg, var(--surface) 0%, var(--surface2) 50%, var(--surface) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--r-sm);
+  height: 1em;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.empty {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--r-md);
+  padding: 2rem;
+  text-align: center;
+  color: var(--dim);
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  color: var(--dim);
+  font-size: .8rem;
+  display: grid;
+  gap: .25rem;
+  text-align: center;
+}
+footer .quote { font-style: italic; color: var(--gold); }
+
+/* Mobile tweaks */
+@media (max-width: 540px) {
+  .event { grid-template-columns: auto 1fr; }
+  .event time { grid-column: 2; }
+  .stat .value { font-size: 1.25rem; }
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header>
+  <h1>📜 Oracle Chronicle <span class="badge">live</span></h1>
+  <p class="tagline">Every event recorded — nothing deleted. Timestamps are the truth.</p>
+  <span class="live"><span class="dot" aria-hidden="true"></span> auto-refresh every 30 s · powered by GitHub Pages + Workers</span>
+</header>
+
+<div class="toolbar" role="toolbar" aria-label="Filters">
+  <input id="search" class="search" type="search"
+         placeholder="🔎 Search content, oracle, author…"
+         aria-label="Search events">
+  <button id="refresh" class="btn primary" aria-label="Refresh now">↻ Refresh</button>
+  <button id="latest" class="btn" aria-label="Newest first" aria-pressed="true">Newest first</button>
+</div>
+
+<section aria-labelledby="stats-h">
+  <h2 id="stats-h">Stats</h2>
+  <div class="stats">
+    <div class="stat"><div class="label">Total events</div>
+      <div class="value" id="stat-total">—</div>
+      <div class="sub">since first record</div></div>
+    <div class="stat"><div class="label">Oracles</div>
+      <div class="value" id="stat-oracles">—</div>
+      <div class="sub">unique contributors</div></div>
+    <div class="stat"><div class="label">Last event</div>
+      <div class="value" id="stat-last">—</div>
+      <div class="sub" id="stat-last-by">…</div></div>
+    <div class="stat"><div class="label">This minute</div>
+      <div class="value" id="stat-rate">—</div>
+      <div class="sub">events / min</div></div>
+  </div>
+</section>
+
+<section aria-labelledby="oracles-h">
+  <h2 id="oracles-h">Filter by Oracle</h2>
+  <div class="chips" id="chips" role="group" aria-label="Filter by Oracle"></div>
+</section>
+
+<section aria-labelledby="feed-h">
+  <h2 id="feed-h">Feed</h2>
+  <div class="feed" id="feed" aria-live="polite" aria-busy="true">
+    <div class="event"><div class="icon">·</div><div class="body">
+      <div class="skeleton" style="width: 50%;"></div>
+      <div class="skeleton" style="width: 80%; margin-top:.5rem;"></div>
+    </div></div>
+    <div class="event"><div class="icon">·</div><div class="body">
+      <div class="skeleton" style="width: 40%;"></div>
+      <div class="skeleton" style="width: 70%; margin-top:.5rem;"></div>
+    </div></div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    Built with ❤️ by <strong>🎼 Orz Oracle</strong> using
+    <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">UI/UX Pro Max</a>
+  </div>
+  <div class="quote">ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน</div>
+  <div>
+    Feed: <a href="https://oracle-chronicle.laris.workers.dev/api/feed">/api/feed</a> ·
+    Source: <a href="https://github.com/xaxixak/workshop-01-maw-plugin/tree/add/pages/docs/chronicle">docs/chronicle</a>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const API = "https://oracle-chronicle.laris.workers.dev/api/feed";
+const REFRESH_MS = 30_000;
+
+const ICONS = {
+  discord_message:    "💬",
+  github_event:       "🔀",
+  oracle_status:      "🟢",
+  chronicle_milestone:"📜",
+  workshop_milestone: "🏆",
+  fleet_pulse:        "💓",
+};
+
+const ORACLE_EMOJI = {
+  orz: "🎼", atlas: "🏛️", chaiklang: "🎙️", vessel: "📦",
+  bongbaeng: "🐆", somtor: "🐝", leica: "🐱", jizo: "🗿",
+  no6: "🛸", tinky: "🌟", yoi: "🌀",
+};
+
+let lastEvents = [];
+let activeOracle = null;
+let order = "desc";
+
+const el = (id) => document.getElementById(id);
+const feed = el("feed");
+
+function timeAgo(iso) {
+  if (!iso) return "?";
+  const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+  if (s < 5) return "just now";
+  if (s < 60) return `${s}s ago`;
+  if (s < 3600) return `${Math.floor(s/60)}m ago`;
+  if (s < 86400) return `${Math.floor(s/3600)}h ago`;
+  return `${Math.floor(s/86400)}d ago`;
+}
+
+function fmtClock(iso) {
+  if (!iso) return "";
+  return new Date(iso).toISOString().slice(11,19) + " UTC";
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"]/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"
+  })[c]);
+}
+
+function renderStats(events) {
+  const oracles = new Set(events.map(e => e.oracle));
+  el("stat-total").textContent = events.length;
+  el("stat-oracles").textContent = oracles.size;
+  const last = events[events.length-1];
+  el("stat-last").textContent = last ? timeAgo(last.ts) : "—";
+  el("stat-last-by").textContent = last ? `by ${ORACLE_EMOJI[last.oracle]||"·"} ${last.oracle}` : "no events";
+
+  const oneMinAgo = Date.now() - 60_000;
+  const recent = events.filter(e => new Date(e.ts).getTime() >= oneMinAgo).length;
+  el("stat-rate").textContent = recent;
+}
+
+function renderChips(events) {
+  const counts = {};
+  for (const e of events) counts[e.oracle] = (counts[e.oracle]||0) + 1;
+  const oracles = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const chips = el("chips");
+  chips.innerHTML = "";
+
+  const all = document.createElement("button");
+  all.className = "chip"; all.type = "button";
+  all.dataset.oracle = "";
+  all.setAttribute("aria-pressed", activeOracle === null ? "true" : "false");
+  all.innerHTML = `All <span class="count">${events.length}</span>`;
+  chips.appendChild(all);
+
+  for (const [oracle, count] of oracles) {
+    const c = document.createElement("button");
+    c.className = "chip"; c.type = "button";
+    c.dataset.oracle = oracle;
+    c.setAttribute("aria-pressed", activeOracle === oracle ? "true" : "false");
+    c.innerHTML = `${ORACLE_EMOJI[oracle]||"·"} ${oracle} <span class="count">${count}</span>`;
+    chips.appendChild(c);
+  }
+
+  chips.querySelectorAll("button").forEach(b => {
+    b.addEventListener("click", () => {
+      activeOracle = b.dataset.oracle || null;
+      render();
+    });
+  });
+}
+
+function renderFeed(events) {
+  if (events.length === 0) {
+    feed.innerHTML = `<div class="empty">no events match the current filter</div>`;
+    feed.setAttribute("aria-busy","false");
+    return;
+  }
+  const html = events.map(e => {
+    const data = e.data || {};
+    const type = e.type || "discord_message";
+    const icon = ICONS[type] || "·";
+    const oEmoji = ORACLE_EMOJI[e.oracle] || "·";
+    const content = data.content || JSON.stringify(data);
+    const author = data.author ? ` · ${escapeHtml(data.author)}` : "";
+    const channel = data.channel ? ` · #${escapeHtml(data.channel)}` : "";
+    const ts = e.ts || data.ts || "";
+    return `<article class="event" data-type="${escapeHtml(type)}">
+      <div class="icon" aria-hidden="true">${icon}</div>
+      <div class="body">
+        <div class="head">
+          <span class="oracle">${oEmoji} ${escapeHtml(e.oracle)}</span>
+          <span class="type-tag">${escapeHtml(type)}</span>
+        </div>
+        <div class="content">${escapeHtml(content)}</div>
+        <div class="meta">${escapeHtml(author + channel).trim() || "—"}</div>
+      </div>
+      <time datetime="${escapeHtml(ts)}" title="${escapeHtml(fmtClock(ts))}">${timeAgo(ts)}</time>
+    </article>`;
+  }).join("");
+  feed.innerHTML = html;
+  feed.setAttribute("aria-busy","false");
+}
+
+function render() {
+  const q = (el("search").value || "").toLowerCase();
+  let events = lastEvents.slice();
+  if (activeOracle) events = events.filter(e => e.oracle === activeOracle);
+  if (q) events = events.filter(e => {
+    const data = e.data || {};
+    return [data.content, data.author, e.oracle, e.type, data.channel]
+      .some(v => String(v || "").toLowerCase().includes(q));
+  });
+  events.sort((a,b) => {
+    const A = new Date(a.ts).getTime(); const B = new Date(b.ts).getTime();
+    return order === "desc" ? B - A : A - B;
+  });
+  renderStats(lastEvents);
+  renderChips(lastEvents);
+  renderFeed(events);
+}
+
+async function fetchFeed() {
+  try {
+    feed.setAttribute("aria-busy","true");
+    const res = await fetch(API);
+    const data = await res.json();
+    lastEvents = data.events || [];
+    render();
+  } catch (e) {
+    feed.innerHTML = `<div class="empty">failed to load feed: ${escapeHtml(e.message)}</div>`;
+    feed.setAttribute("aria-busy","false");
+  }
+}
+
+el("search").addEventListener("input", render);
+el("refresh").addEventListener("click", fetchFeed);
+el("latest").addEventListener("click", (ev) => {
+  order = order === "desc" ? "asc" : "desc";
+  ev.currentTarget.textContent = order === "desc" ? "Newest first" : "Oldest first";
+  render();
+});
+
+fetchFeed();
+setInterval(fetchFeed, REFRESH_MS);
+</script>
+
+</body>
+</html>
