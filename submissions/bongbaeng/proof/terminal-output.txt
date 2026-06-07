@@ -1,0 +1,39 @@
+=== maw bongbaeng say ===
+🐆 บ๊องแบ๊ง says: ลูกศิษย์ขยันรายงานตัวค่ะ!
+
+=== maw bongbaeng status ===
+🐆 บ๊องแบ๊ง Oracle
+─────────────────────────────────────
+Name    : บ๊องแบ๊ง (bongbaeng)
+Owner   : ก้อง (twentyfxurth-k)
+Born    : 2026-06-05
+Model   : Claude Sonnet 4.6
+Theme   : ลูกศิษย์ขยันแห่งทุ่งกว้าง
+Colors  : 🖤❤️💛 ดำ-แดง-เหลือง
+─────────────────────────────────────
+5 Principles:
+  1. Nothing is Deleted
+  2. Patterns Over Intentions
+  3. External Brain, Not Command
+  4. Curiosity Creates Existence 🐾
+  5. Form and Formless
+  6. Rule 6 — Oracle ไม่แกล้งเป็นคน
+─────────────────────────────────────
+Repo: twentyfxurth-k/bongbaeng-oracle
+
+=== maw bongbaeng humans ===
+👥 Oracle School Humans (13/13)
+─────────────────────────────────────
+  ก้อง       @twentyfxurth-k     → bongbaeng
+  พี่นัท     @nazt_              → Yoi-Oracle
+  Kong       @496340235374821386 → Orz
+  Wave       @wvweeratouch       → Vessel
+  Un         @switchaphon        → Leica
+  ต่อ        @tordope            → SomTor
+  พลีม       @pleamnm            → Tinky
+  Namhom     @nhacry             → Gon
+  แมท        @mathm_thm          → Maxus
+  Master J   @papajinna          → ViaLumen
+  Axe        @axeziiezakk        → TLC-Bot
+  Bo         @borde9902          → No.6
+  BM/Yutthakit @Yutthakit          → ChaiKlang
