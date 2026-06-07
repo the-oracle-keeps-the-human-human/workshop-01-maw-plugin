@@ -1,0 +1,12 @@
+{
+  "name": "agy-nano2",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "No.8 Agy Nano2 — The Creator & Breeder (Image Generation / Nano Banana)",
+  "surfaces": { "cli": "maw agy-nano2" },
+  "cli": {
+    "command": "agy-nano2"
+  },
+  "capabilities": ["fs:read", "sdk:plugin"]
+}
