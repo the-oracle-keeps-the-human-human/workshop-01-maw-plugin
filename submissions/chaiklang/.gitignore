@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+*.token
+*.key
+*.pem
+.maw/
+.omx/
+.claude/
+.DS_Store
+*.log
