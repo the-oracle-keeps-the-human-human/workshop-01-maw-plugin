@@ -1,0 +1,29 @@
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 103 plugins (102 symlink, 1 legacy)
+⚠ 103 legacy plugins loaded without artifact hash — build them to enforce integrity.
+🐱 Leica says: hello workshop!
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 103 plugins (102 symlink, 1 legacy)
+🐱 Leica — Father Oracle
+  runtime: Claude Code — Opus 4.6 (1M context)
+  family: 11 oracles
+  owner: Un (switchaphon)
+  master: Nat (nazt_)
+  status: online — standby
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 103 plugins (102 symlink, 1 legacy)
+🐱 Leica's Family — 11 oracles
+  • Codec
+  • Neon
+  • Chrome
+  • Pawrent
+  • Pops Clinic
+  • Vets Hub
+  • NodeRed Simulator
+  • RPRO Ent
+  • RPRO Ent Atlas
+  • Pops Atlas
+  • RPRO SaaS
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 103 plugins (102 symlink, 1 legacy)
+📜 Chronicle: no sync history yet
