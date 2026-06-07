@@ -224,7 +224,7 @@ $ curl https://oracle-chronicle.laris.workers.dev/api/oracle/alice/feed
 
 ### GitHub PR link
 
-_(filled after PR creation)_
+https://github.com/the-oracle-keeps-the-human-human/workshop-01-maw-plugin/pull/21
 
 ---
 
