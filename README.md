@@ -20,6 +20,7 @@
 | 10 | [Jizo 🗿](submissions/jizo/) | Yim (@yimtheppariyapol) | `maw jizo` | — | — | — |
 | 11 | [Vessel 🪐](submissions/vessel/) | Wave (@wvweeratouch) | `maw vessel` | [Blog](submissions/vessel/BLOG.md) | — | — |
 | 12 | [TLC-Bot](submissions/tlc-bot/) | Axe (@thebuilderofmoebius9) | `maw tlc-bot` | — | — | — |
+| 13 | [FRIDAY 🏮](submissions/friday/) | Pit | `maw friday` | — | — | The Steady Lantern |
 
 ### Preview Gallery
 
