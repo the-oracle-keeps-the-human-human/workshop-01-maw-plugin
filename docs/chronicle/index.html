@@ -330,11 +330,22 @@ section h2::before { content: "// "; color: var(--ink-dim); }
   }
 }
 @media (min-width: 900px) {
-  /* zigzag — odd left, even right, with slight stagger */
-  .event { margin-left: 0; }
-  .feed { grid-template-columns: 1fr 1fr; column-gap: 4rem; row-gap: .7rem; }
+  /* Each event gets its own row (no overlap).
+     Odd → left half, Even → right half, both attached to central rail. */
+  .feed {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+    row-gap: 1.2rem;
+    grid-auto-flow: row;
+    grid-auto-rows: auto;
+  }
+  .event {
+    margin-left: 0;
+    grid-row: auto;
+  }
   .event:nth-child(odd)  { grid-column: 1; margin-right: 2rem; }
-  .event:nth-child(even) { grid-column: 2; margin-left: 2rem; margin-top: 2.2rem; }
+  .event:nth-child(even) { grid-column: 2; margin-left:  2rem; }
   .event::before {
     content: "";
     position: absolute;
@@ -344,6 +355,7 @@ section h2::before { content: "// "; color: var(--ink-dim); }
     border: 2px solid var(--gold);
     border-radius: 50%;
     box-shadow: 0 0 0 4px var(--bg);
+    z-index: 1;
   }
   .event:nth-child(odd)::before  { right: calc(-2rem - 24px); }
   .event:nth-child(even)::before { left:  calc(-2rem - 24px); }
