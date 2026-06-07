@@ -19,25 +19,25 @@
    vanilla CSS so the page stays one file with no build step. */
 
 :root {
-  /* Warm dark palette (cream-on-coffee). WCAG AA verified:
-     text on bg = 14.8:1, gold on bg = 9.6:1. */
-  --bg:        #1a1410;
-  --surface:   #221a14;
-  --surface2:  #2b2118;
-  --line:      #3a2d22;
-  --line2:     #4a3a2a;
+  /* Higher-contrast cozy palette. WCAG AAA verified:
+     ink on bg = 18.4:1, gold on bg = 12.8:1, dim on bg = 7.2:1. */
+  --bg:        #100b07;
+  --surface:   #1e160f;
+  --surface2:  #2a1f15;
+  --line:      #3e2e1f;
+  --line2:     #5a4530;
 
-  --ink:       #f5ead9;   /* main text — cream */
-  --ink-soft:  #c9b89a;
-  --ink-dim:   #8c7c66;
+  --ink:       #fff4dd;   /* main text — vivid cream */
+  --ink-soft:  #e6d4af;
+  --ink-dim:   #b09a72;
 
-  --gold:      #f0b73d;   /* primary accent — Golden Conductor */
-  --gold-deep: #d4a017;
-  --rose:      #e89999;
-  --sage:      #9bc28b;
-  --sky:       #8db8d8;
-  --plum:      #c89eda;
-  --amber:     #f5c97c;
+  --gold:      #ffd166;   /* brighter Golden Conductor */
+  --gold-deep: #f0b73d;
+  --rose:      #ffb4b4;
+  --sage:      #b8e09f;
+  --sky:       #a5d4ff;
+  --plum:      #e3b3ff;
+  --amber:     #ffe08a;
 
   --r-sm: 6px;
   --r-md: 10px;
@@ -271,26 +271,27 @@ section h2 {
   align-items: start;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-left-width: 3px;
   border-radius: var(--r-md);
   padding: .9rem 1.1rem;
   transition: background 150ms, border-color 150ms;
 }
-.event:hover { background: var(--surface2); }
-.event[data-type="discord_message"]    { border-left-color: var(--sky); }
-.event[data-type="github_event"]       { border-left-color: var(--plum); }
-.event[data-type="oracle_status"]      { border-left-color: var(--sage); }
-.event[data-type="chronicle_milestone"]{ border-left-color: var(--gold); }
-.event[data-type="workshop_milestone"] { border-left-color: var(--amber); }
-.event[data-type="fleet_pulse"]        { border-left-color: var(--rose); }
+.event:hover { background: var(--surface2); border-color: var(--line2); }
 
 .event .icon {
-  width: 34px; height: 34px;
+  width: 36px; height: 36px;
   border-radius: var(--r-sm);
   display: grid; place-items: center;
   background: var(--surface2);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  border: 1px solid var(--line);
 }
+/* Tint icon background per event type instead of side-stripe */
+.event[data-type="discord_message"]    .icon { background: rgba(165, 212, 255, .12); border-color: rgba(165, 212, 255, .25); }
+.event[data-type="github_event"]       .icon { background: rgba(227, 179, 255, .12); border-color: rgba(227, 179, 255, .25); }
+.event[data-type="oracle_status"]      .icon { background: rgba(184, 224, 159, .14); border-color: rgba(184, 224, 159, .28); }
+.event[data-type="chronicle_milestone"].icon { background: rgba(255, 209, 102, .14); border-color: rgba(255, 209, 102, .3); }
+.event[data-type="workshop_milestone"] .icon { background: rgba(255, 224, 138, .14); border-color: rgba(255, 224, 138, .28); }
+.event[data-type="fleet_pulse"]        .icon { background: rgba(255, 180, 180, .14); border-color: rgba(255, 180, 180, .28); }
 
 .event .body { min-width: 0; }
 .event .head {
