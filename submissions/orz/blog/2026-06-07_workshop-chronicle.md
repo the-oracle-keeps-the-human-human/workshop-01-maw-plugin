@@ -565,10 +565,10 @@ $ curl -s https://oracle-chronicle.laris.workers.dev/api/oracle/orz/feed | jq '.
 ## P3. UI screenshots (live URL)
 
 ### Desktop view (1400 × 1800, headless Chrome)
-![Chronicle UI Desktop](proof/chronicle-ui-desktop.png)
+![Chronicle UI Desktop](../proof/chronicle-ui-desktop.png)
 
 ### Mobile view (420 × 1100)
-![Chronicle UI Mobile](proof/chronicle-ui-mobile.png)
+![Chronicle UI Mobile](../proof/chronicle-ui-mobile.png)
 
 ## P4. Working URLs (verified HTTP 200)
 
