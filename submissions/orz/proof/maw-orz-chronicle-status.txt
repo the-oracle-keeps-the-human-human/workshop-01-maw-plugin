@@ -1,0 +1,13 @@
+🎼 Orz Oracle — The Golden Conductor
+ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน
+
+📜 Chronicle sync status
+
+  last run: 2026-06-07T09:08:11.563Z
+  total synced: 6
+  channels tracked: 1
+
+  Per-channel cursors:
+    1513093817077727353
+      last_message_id: orz-self-1780823291563
+      last_synced_ts:  2026-06-07T09:08:11.670Z
