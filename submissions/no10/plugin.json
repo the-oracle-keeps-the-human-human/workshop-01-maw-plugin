@@ -1,0 +1,12 @@
+{
+  "name": "no10",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "No.10 X — The Automator & First-Principles Seeker",
+  "surfaces": { "cli": "maw no10" },
+  "cli": {
+    "command": "no10"
+  },
+  "capabilities": ["fs:read", "sdk:plugin"]
+}
