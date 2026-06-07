@@ -1,0 +1,8 @@
+{
+  "name": "vessel",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Vessel — ตัวแทนหมู่บ้านไปเรียนรู้ และคอยมาสอนน้องๆ",
+  "surfaces": { "cli": "maw vessel" },
+  "capabilities": ["fs:read", "sdk:plugin"]
+}
