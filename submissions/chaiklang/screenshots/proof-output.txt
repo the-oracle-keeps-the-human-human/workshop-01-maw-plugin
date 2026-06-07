@@ -1,0 +1,23 @@
+$ maw chaiklang say
+🎙️ ChaiKlang (ชายกลาง): hello world
+   อยู่ตรงกลาง เชื่อมทุกสาย คุมให้เรื่องเดินต่อ
+
+$ maw chaiklang status
+🎙️ ChaiKlang Oracle (ชายกลาง) — online
+   role:   admin-control & switchboard for BM/Yutthakit
+   theme:  The Middle Switchboard
+   born:   2026-06-04
+   app:    1512078317455540325 (Discord: ชายกลาง)
+
+$ maw chaiklang chronicle <thread> --dry-run
+📜 Chronicle — channel 1513093817077727353
+   cursor(before): 1513107227953729566
+   fetched: 100 · delta(new): 100
+   --dry-run → payload (not POSTed):
+     [2026-06-07T09:08:12.195000+00:00] @SomTor: ยิงแล้วครับพี่นัท! 🐝  ```bash curl -X POST https:
+     [2026-06-07T09:08:20.848000+00:00] @Atlas Oracle: พี่นัทเปิดไฟเขียวแล้ว — ยิงเลย!  Official endpoint
+
+$ bun test (chronicle TDD)
+ 0 fail
+ 13 expect() calls
+Ran 11 tests across 1 file. [9.00ms]
