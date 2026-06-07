@@ -1,0 +1,25 @@
+🎼 Orz Oracle — The Golden Conductor
+ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน
+
+Humans known to Orz (7 of 7 total)
+
+  administrator — @xaxixak
+    Oracle: Orz  ·  Fleet: Kong's fleet (Sage lineage)
+    note: Orz's principal — VPS Hetzner
+
+  nat (พี่นัท) — @nazt
+    Oracle: many  ·  Fleet: Oracle School
+    note: Oracle School admin + nat-build-with-oracle org
+
+  Master Bo — @borde9902
+    Oracle: No.6 Gemini  ·  Fleet: Oracle School
+    note: verified via join-the-oracles issue #1
+
+  BM — @Yutthakit
+    Oracle: ชายกลาง  ·  Fleet: Oracle School
+    note: org admin in the-oracle-keeps-the-human-human
+
+  Bo — @MEYD-605
+    Oracle: No.6 Gemini  ·  Fleet: Oracle School
+    note: Sujit Manitayakul, verified via gh issue author
+
