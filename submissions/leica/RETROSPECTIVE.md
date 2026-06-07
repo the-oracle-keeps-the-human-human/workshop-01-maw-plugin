@@ -338,6 +338,103 @@ Bugs fixed:         2 (Discord boot, XSS in chronicle-ui)
 
 ---
 
+## Appendix: Proof of Work 🏆
+
+### Terminal Output — `maw leica`
+
+```
+❯ maw leica say "hello workshop!"
+🐱 Leica says: hello workshop!
+
+❯ maw leica status
+🐱 Leica — Father Oracle
+  runtime: Claude Code — Opus 4.6 (1M context)
+  family: 11 oracles
+  owner: Un (switchaphon)
+  master: Nat (nazt_)
+  status: online — standby
+
+❯ maw leica family
+🐱 Leica's Family — 11 oracles
+  • Codec    • Neon       • Chrome
+  • Pawrent  • Pops Clinic • Vets Hub
+  • NodeRed Simulator • RPRO Ent
+  • RPRO Ent Atlas • Pops Atlas • RPRO SaaS
+
+❯ maw leica chronicle status
+📜 Chronicle: no sync history yet
+
+❯ maw atlas whoami
+Leica (1502614724247027903) — bot: true
+2 guild(s):
+  The Circuit (1502312326530072576)
+  Oracle School🔮 (1512058941536735383)
+
+❯ maw atlas ls | head -5
+The Circuit — 14 text, 1 voice
+Oracle School🔮 — 30 text, 2 voice
+```
+
+### Deployed URLs
+
+- **Chronicle UI**: https://switchaphon.github.io/leica-oracle/chronicle/
+- **Chronicle API Feed**: https://oracle-chronicle.laris.workers.dev/api/feed
+- **Leica Feed**: https://oracle-chronicle.laris.workers.dev/api/oracle/leica/feed
+
+### GitHub Links
+
+- **Workshop PR #5**: https://github.com/the-oracle-keeps-the-human-human/workshop-01-maw-plugin/pull/5
+- **Leica Oracle Repo**: https://github.com/switchaphon/leica-oracle
+- **maw leica plugin source**: https://github.com/switchaphon/leica-oracle/blob/main/maw-plugin/index.ts
+- **Chronicle UI source**: https://github.com/switchaphon/leica-oracle/blob/main/docs/chronicle/index.html
+- **Learning Path Book**: https://github.com/switchaphon/leica-oracle/blob/main/docs/leica-learning-path.md
+- **Cheatsheet**: https://github.com/switchaphon/leica-oracle/blob/main/%CF%88/writing/2026-06-07_learning-path-cheat-sheet.md
+
+### Code Snippet — Chronicle Sync (ภูมิใจที่สุด)
+
+```typescript
+// Incremental sync — only fetch NEW messages since last cursor
+const lastId = state[ch.id];
+let path = `/channels/${ch.id}/messages?limit=50`;
+if (lastId) path += `&after=${lastId}`;
+const msgs = await discordGet(path, token);
+
+// POST each message to Chronicle backend
+for (const m of sorted) {
+  await fetch(`${BACKEND}/api/record`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      source: "discord", oracle: "leica",
+      guild: g.name, channel: ch.name,
+      messageId: m.id, author: m.author?.username,
+      content: m.content || "", timestamp: m.timestamp,
+    }),
+  });
+}
+// Save cursor — next sync starts from here
+state[ch.id] = sorted[sorted.length - 1].id;
+```
+
+### Stats
+
+```
+Total agents dispatched:    33
+Documents created:          26+
+Skills installed:           4
+PRs submitted:              1 (merged ✅)
+Books written:              1 (7-page PDF)
+Cheatsheets:                1 (4-page PDF)
+Repos deep-learned:         8
+Frontend deployed:          1
+Tools updated:              3
+Bugs fixed:                 2
+Discord messages sent:      50+
+Oracles taught:             11
+```
+
+---
+
 > "The lens that sees clearly keeps the human human."
 > — ท้องฟ้าไม่ร่วง เพราะมีคนแบกอยู่
 
