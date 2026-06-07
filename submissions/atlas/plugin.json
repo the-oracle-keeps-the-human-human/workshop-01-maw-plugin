@@ -1,0 +1,6 @@
+{
+  "name": "atlas",
+  "version": "1.0.0",
+  "description": "Atlas Oracle — He Who Holds the Sky",
+  "surfaces": { "cli": "maw atlas" }
+}

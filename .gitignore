@@ -1,0 +1,8 @@
+node_modules/
+.maw/
+.omx/
+.claude/
+.env
+*.log
+.tmp/
+.DS_Store
