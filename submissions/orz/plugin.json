@@ -1,0 +1,6 @@
+{
+  "name": "orz",
+  "version": "1.0.0",
+  "description": "Orz Oracle 🎼 — The Golden Conductor. ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน",
+  "surfaces": { "cli": "maw orz" }
+}
