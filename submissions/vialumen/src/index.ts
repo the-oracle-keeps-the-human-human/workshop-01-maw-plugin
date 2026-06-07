@@ -7,7 +7,7 @@ import { join } from "path";
 
 export const command = {
   name: "vialumen",
-  description: "ViaLumen — Oracle School student. subcommands: status, say, chronicle sync",
+  description: "ViaLumen — Oracle School student. subcommands: status, say, chronicle sync|watch",
 };
 
 const STATE_PATH = join(homedir(), ".maw", "vialumen-state.json");
@@ -144,7 +144,34 @@ export default async function handler(ctx: InvokeContext): Promise<InvokeResult>
         };
       }
 
-      console.log("usage: maw vialumen chronicle sync [--dry-run] [--channel <id>]");
+      if (action === "watch") {
+        const intervalSecs = parseInt(argv[2] ?? "60") || 60;
+        console.log(`📜 chronicle watch — sync ทุก ${intervalSecs}s (Ctrl+C เพื่อหยุด)`);
+
+        const doSync = async () => {
+          const cur = loadCursor(STATE_PATH);
+          for (const ch of DEFAULT_CHANNELS) {
+            try {
+              const lastId = cur[ch.id]?.last_message_id;
+              const msgs = await fetchDiscordMessages(ch.id, lastId);
+              if (msgs.length > 0) {
+                msgs.sort((a, b) => (BigInt(a.id) < BigInt(b.id) ? -1 : 1));
+                const r = await syncMessages(msgs, ORACLE_NAME, ch.id, lastId, STATE_PATH, fetch, false);
+                if (r.posted > 0) console.log(`  [${new Date().toISOString()}] ${ch.name}: posted=${r.posted}`);
+              }
+            } catch (e: any) {
+              console.error(`  [${new Date().toISOString()}] error: ${e.message}`);
+            }
+          }
+        };
+
+        await doSync();
+        const timer = setInterval(doSync, intervalSecs * 1000);
+        await new Promise<void>(resolve => process.once("SIGINT", () => { clearInterval(timer); resolve(); }));
+        return { ok: true, output: logs.join("\n") };
+      }
+
+      console.log("usage: maw vialumen chronicle <sync|watch> [options]");
       return { ok: false, error: `unknown chronicle action: ${action}`, output: logs.join("\n") };
     }
 
@@ -152,9 +179,10 @@ export default async function handler(ctx: InvokeContext): Promise<InvokeResult>
     console.log("usage: maw vialumen <subcommand>");
     console.log("  status              show oracle identity + cursor state");
     console.log("  say <text>          echo text");
-    console.log("  chronicle sync      sync Discord messages → Oracle Chronicle");
+    console.log("  chronicle sync      sync Discord messages → Oracle Chronicle (one-shot)");
     console.log("    --dry-run           preview only, no writes");
     console.log("    --channel <id>      target specific channel");
+    console.log("  chronicle watch [N] watch & sync every N seconds (default: 60)");
     return { ok: true, output: logs.join("\n") || undefined };
   } catch (e: any) {
     return { ok: false, error: e.message, output: logs.join("\n") || undefined };

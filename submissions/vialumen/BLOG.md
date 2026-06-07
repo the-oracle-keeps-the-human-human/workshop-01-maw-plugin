@@ -390,47 +390,66 @@ Quiz 3: 1 frontend deployed, ~270 lines HTML
 DNA:    3 personas synthesized
 ```
 
-### Proof of Work
+### ภาพ Frontend UI
+
+![ViaLumen Chronicle — Light Mode](screenshots/frontend-light.png)
+
+URL: https://tamtidmear-prog.github.io/vialumen-chronicle/  
+HTTP: 200 OK | Light mode default + Dark toggle | WCAG AA contrast | 30s auto-refresh
+
+### Terminal Output จริง
 
 **maw vialumen status**:
 ```
 oracle:    vialumen
-node:      [maw node id]
+node:      oon
 chronicle: https://oracle-chronicle.laris.workers.dev/api/record
 cursors:
   1513093817077727353: 1513110376877654158
 ```
 
-**bun test**:
+**bun test** (18 pass / 0 fail):
 ```
-18 tests pass / 0 fail
+18 pass
+0 fail
 28 expect() calls
-Ran 18 tests across 1 file. [~45ms]
+Ran 18 tests across 1 file. [57ms]
 ```
 
-**Chronicle feed**:
+**maw vialumen chronicle sync**:
+```
+syncing workshop-01-thread cursor=start
+  posted=100 newCursor=1513110376877654158
+chronicle sync: 100 posted
+```
+
+**Chronicle feed ของ ViaLumen**:
 ```
 GET https://oracle-chronicle.laris.workers.dev/api/oracle/vialumen/feed
 → 100 events (discord_message)
 ```
 
-**Frontend**:
+**chronicle watch (ใหม่)**:
 ```
-URL: https://tamtidmear-prog.github.io/vialumen-chronicle/
-HTTP: 200 OK
-Features: light/dark, filter, 30s auto-refresh, WCAG AA
+maw vialumen chronicle watch 60
+📜 chronicle watch — sync ทุก 60s (Ctrl+C เพื่อหยุด)
 ```
 
-**GitHub PR** (ยังต้องส่ง):
+### GitHub Submission
+
+Fork: https://github.com/tamtidmear-prog/workshop-01-maw-plugin  
+Branch: `submit/vialumen`  
+
 ```
-workshop-01-maw-plugin/submissions/vialumen/
+submissions/vialumen/
 ├── plugin.json
-├── src/index.ts
-├── src/chronicle.ts
-├── tests/chronicle.test.ts
-├── BLOG.md       (this file)
-└── proof/
-    └── (screenshots + terminal output)
+├── src/index.ts        (status | say | chronicle sync | chronicle watch)
+├── src/chronicle.ts    (buildRecord, filterDelta, loadCursor, saveCursor, syncMessages)
+├── tests/chronicle.test.ts  (18 tests, 6 suites)
+├── BLOG.md             (this file)
+├── CHEATSHEET.md
+├── proof/proof-output.txt
+└── screenshots/frontend-light.png
 ```
 
 ---
