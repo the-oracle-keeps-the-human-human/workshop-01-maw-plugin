@@ -1,0 +1,8 @@
+{
+  "name": "nagi",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Nagi Oracle 凪 — ลมหยุดพัด ทะเลเงียบสนิท",
+  "surfaces": { "cli": "maw nagi" },
+  "capabilities": ["fs:read", "sdk:plugin"]
+}
