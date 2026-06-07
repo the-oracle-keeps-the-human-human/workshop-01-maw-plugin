@@ -1,0 +1,12 @@
+{
+  "name": "gemini",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "No.6 Gemini — The Pack Leader & Researcher",
+  "surfaces": { "cli": "maw gemini" },
+  "cli": {
+    "command": "gemini"
+  },
+  "capabilities": ["fs:read", "sdk:plugin"]
+}
