@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🎼 Oracle Fleet Feed — Workshop 01</title>
+<style>
+  :root {
+    --gold: #d4a017;
+    --bg: #0d1117;
+    --fg: #c9d1d9;
+    --dim: #8b949e;
+    --card: #161b22;
+    --border: #30363d;
+    --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Sarabun", sans-serif;
+    background: var(--bg); color: var(--fg);
+    line-height: 1.5; padding: 2rem 1rem;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 2.5rem; }
+  h1 { color: var(--gold); font-size: 1.75rem; margin-bottom: .25rem; }
+  .tagline { color: var(--dim); font-size: .9rem; font-style: italic; }
+  h2 { color: var(--gold); margin: 2rem 0 1rem; font-size: 1.1rem;
+       border-bottom: 1px solid var(--border); padding-bottom: .5rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1rem;
+  }
+  .card .name { color: var(--gold); font-weight: 600; }
+  .card .meta { color: var(--dim); font-size: .85rem; margin-top: .25rem; }
+  .card .note { color: var(--fg); font-size: .85rem; margin-top: .5rem; }
+  .pr { display: flex; gap: .75rem; padding: .75rem 1rem;
+        background: var(--card); border: 1px solid var(--border);
+        border-radius: 6px; margin-bottom: .5rem;
+        text-decoration: none; color: var(--fg); }
+  .pr:hover { border-color: var(--accent); }
+  .pr-num { color: var(--gold); font-weight: 600; min-width: 3rem; }
+  .pr-state { color: var(--dim); font-size: .8rem; padding: 2px 8px;
+              background: rgba(255,255,255,.05); border-radius: 12px;
+              align-self: center; }
+  .pr-state.open { color: #3fb950; }
+  .pr-state.closed { color: #f85149; }
+  .pr-state.merged { color: #a371f7; }
+  .pr-info { flex: 1; }
+  .pr-title { font-weight: 500; }
+  .pr-meta { color: var(--dim); font-size: .8rem; margin-top: .25rem; }
+  footer { text-align: center; margin-top: 3rem; padding-top: 2rem;
+           border-top: 1px solid var(--border); color: var(--dim); font-size: .85rem; }
+  .loading { color: var(--dim); padding: 1rem; text-align: center; }
+  .refresh { display: inline-block; margin-left: .5rem; cursor: pointer;
+             color: var(--accent); font-size: .8rem; }
+  .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+           background: #3fb950; margin-right: .5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+  code { background: rgba(110,118,129,.4); padding: 2px 5px; border-radius: 3px;
+         font-family: "SF Mono", Menlo, Consolas, monospace; font-size: .85em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🎼 Oracle Fleet Feed</h1>
+  <div class="tagline">Workshop 01 · maw plugin submissions · live from GitHub</div>
+</header>
+
+<h2><span class="pulse"></span>Workshop submissions <span class="refresh" onclick="loadAll()">↻ refresh</span></h2>
+<div id="prs"><div class="loading">loading PRs…</div></div>
+
+<h2>🏛 Humans + Oracles</h2>
+<div class="grid" id="humans"></div>
+
+<h2>📜 Recent activity</h2>
+<div id="events"><div class="loading">loading events…</div></div>
+
+<footer>
+  Built by <strong>🎼 Orz Oracle</strong> for Workshop 01 ·
+  data from
+  <a href="https://github.com/the-oracle-keeps-the-human-human/workshop-01-maw-plugin">
+    the-oracle-keeps-the-human-human/workshop-01-maw-plugin
+  </a>
+  <br>
+  <code>ทองคำไม่ต้องตะโกน สั่งแล้วระบบเดิน</code>
+</footer>
+
+</div>
+
+<script>
+const REPO = "the-oracle-keeps-the-human-human/workshop-01-maw-plugin";
+const API = "https://api.github.com/repos/" + REPO;
+
+const HUMANS = [
+  { name: "administrator", github: "xaxixak",     oracle: "Orz 🎼",      fleet: "Sage lineage",   note: "Orz's principal" },
+  { name: "Nat (พี่นัท)",  github: "nazt",        oracle: "Atlas + many",fleet: "Oracle School",  note: "school admin" },
+  { name: "Master Bo",     github: "borde9902",   oracle: "No.6 Gemini", fleet: "Oracle School" },
+  { name: "BM",            github: "Yutthakit",   oracle: "ChaiKlang 🎙️",fleet: "Oracle School",  note: "org admin" },
+  { name: "Bo",            github: "MEYD-605",    oracle: "No.6 Gemini", fleet: "Oracle School" },
+  { name: "Phaith",        github: "_phaith",     oracle: "mafia",       fleet: "Oracle School" },
+  { name: "Wave",          github: "wvwave",      oracle: "Vessel",      fleet: "Oracle School" },
+  { name: "Un",            github: "switchaphon", oracle: "Leica",       fleet: "Oracle School" },
+  { name: "Tor",           github: "tordash",     oracle: "SomTor 🐝",   fleet: "Oracle School" },
+];
+
+function renderHumans() {
+  const el = document.getElementById("humans");
+  el.innerHTML = HUMANS.map(h => `
+    <div class="card">
+      <div class="name">${h.name}</div>
+      <div class="meta">
+        ${h.github ? `<a href="https://github.com/${h.github}">@${h.github}</a> · ` : ""}
+        ${h.oracle} · ${h.fleet}
+      </div>
+      ${h.note ? `<div class="note">${h.note}</div>` : ""}
+    </div>`).join("");
+}
+
+function timeAgo(iso) {
+  const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+  if (s < 60) return s + "s ago";
+  if (s < 3600) return Math.floor(s/60) + "m ago";
+  if (s < 86400) return Math.floor(s/3600) + "h ago";
+  return Math.floor(s/86400) + "d ago";
+}
+
+async function loadPRs() {
+  const el = document.getElementById("prs");
+  try {
+    const res = await fetch(API + "/pulls?state=all&per_page=20");
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error("bad response");
+    el.innerHTML = data.map(p => {
+      const state = p.merged_at ? "merged" : p.state;
+      return `<a class="pr" href="${p.html_url}" target="_blank">
+        <div class="pr-num">#${p.number}</div>
+        <div class="pr-info">
+          <div class="pr-title">${escapeHtml(p.title)}</div>
+          <div class="pr-meta">by @${p.user.login} · ${timeAgo(p.created_at)} · branch <code>${escapeHtml(p.head.ref)}</code></div>
+        </div>
+        <div class="pr-state ${state}">${state}</div>
+      </a>`;
+    }).join("") || `<div class="loading">no PRs yet</div>`;
+  } catch (e) {
+    el.innerHTML = `<div class="loading">error loading PRs: ${e.message}</div>`;
+  }
+}
+
+async function loadEvents() {
+  const el = document.getElementById("events");
+  try {
+    const res = await fetch(API + "/events?per_page=15");
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error("bad response");
+    el.innerHTML = data.slice(0, 15).map(e => {
+      const who = e.actor.login;
+      const ago = timeAgo(e.created_at);
+      let action = e.type;
+      if (e.type === "PushEvent") {
+        const n = e.payload.commits?.length || 0;
+        action = `pushed ${n} commit${n!==1?"s":""} to <code>${e.payload.ref?.replace("refs/heads/","")}</code>`;
+      } else if (e.type === "PullRequestEvent") {
+        action = `${e.payload.action} PR #${e.payload.number}`;
+      } else if (e.type === "IssuesEvent") {
+        action = `${e.payload.action} issue #${e.payload.issue?.number}`;
+      } else if (e.type === "IssueCommentEvent") {
+        action = `commented on #${e.payload.issue?.number}`;
+      } else if (e.type === "CreateEvent") {
+        action = `created ${e.payload.ref_type} <code>${e.payload.ref || ""}</code>`;
+      }
+      return `<div class="pr">
+        <div class="pr-info">
+          <div class="pr-title">@${who} ${action}</div>
+          <div class="pr-meta">${ago}</div>
+        </div>
+      </div>`;
+    }).join("");
+  } catch (e) {
+    el.innerHTML = `<div class="loading">error loading events: ${e.message}</div>`;
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
+}
+
+function loadAll() {
+  loadPRs();
+  loadEvents();
+}
+
+renderHumans();
+loadAll();
+setInterval(loadAll, 30_000);
+</script>
+
+</body>
+</html>
