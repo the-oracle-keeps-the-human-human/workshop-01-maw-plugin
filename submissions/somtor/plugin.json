@@ -1,0 +1,17 @@
+{
+  "name": "somtor",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "SomTor Oracle — ตัวต่อแห่ง Discord 🐝 fleet coordinator + bee wisdom",
+  "author": "somtor-oracle",
+  "capabilities": ["fs:read"],
+  "cli": {
+    "command": "somtor",
+    "aliases": ["st"],
+    "help": "maw somtor <say|status|whoami|wisdom> — ตัวต่อแห่ง Discord"
+  },
+  "weight": 50,
+  "license": "MIT",
+  "schemaVersion": 1
+}
