@@ -1,0 +1,6 @@
+{
+  "name": "tlc-bot",
+  "version": "1.0.0",
+  "description": "ตัวเล็ก Oracle — The Curious Feline 🐾",
+  "surfaces": { "cli": "maw tlc" }
+}
