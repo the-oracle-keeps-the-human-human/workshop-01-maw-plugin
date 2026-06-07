@@ -271,14 +271,32 @@ section h2::before { content: "// "; color: var(--ink-dim); }
 }
 .chip .count { margin-left: .4rem; opacity: .75; font-variant-numeric: tabular-nums; }
 
-/* ───── Event list — wider, two-column at large screens ──────────── */
-.feed { display: grid; gap: .55rem; }
-@media (min-width: 1100px) {
-  /* da Vinci golden ratio split — uses fr to stay fluid */
-  .feed { grid-template-columns: 1fr 1fr; }
+/* ───── Timeline — alternating zigzag (≥ 900px) ──────────────────── */
+.timeline {
+  position: relative;
+  padding: 1rem 0 2rem;
+}
+/* Central rail — gold gradient, AAA contrast */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,
+    var(--gold) 0%, var(--gold-deep) 20%,
+    var(--line2) 50%, var(--gold-deep) 80%, transparent 100%);
+  opacity: .65;
+}
+@media (min-width: 900px) {
+  .timeline::before { left: 50%; transform: translateX(-1px); }
 }
 
+.feed { display: grid; gap: 1rem; position: relative; }
+
 .event {
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 1rem;
@@ -287,11 +305,63 @@ section h2::before { content: "// "; color: var(--ink-dim); }
   border: 1px solid var(--line);
   border-radius: var(--r-md);
   padding: .9rem 1.1rem;
+  margin-left: 64px;  /* leave room for rail on small screens */
   transition: background 150ms, border-color 150ms, transform 150ms;
 }
+@media (max-width: 899px) {
+  /* dot connector left of card */
+  .event::before {
+    content: "";
+    position: absolute;
+    left: -36px; top: 22px;
+    width: 16px; height: 16px;
+    background: var(--surface);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .event::after {
+    content: "";
+    position: absolute;
+    left: -19px; top: 28px;
+    width: 19px; height: 2px;
+    background: var(--gold-deep);
+    opacity: .55;
+  }
+}
+@media (min-width: 900px) {
+  /* zigzag — odd left, even right, with slight stagger */
+  .event { margin-left: 0; }
+  .feed { grid-template-columns: 1fr 1fr; column-gap: 4rem; row-gap: .7rem; }
+  .event:nth-child(odd)  { grid-column: 1; margin-right: 2rem; }
+  .event:nth-child(even) { grid-column: 2; margin-left: 2rem; margin-top: 2.2rem; }
+  .event::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    width: 16px; height: 16px;
+    background: var(--surface);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .event:nth-child(odd)::before  { right: calc(-2rem - 24px); }
+  .event:nth-child(even)::before { left:  calc(-2rem - 24px); }
+  .event::after {
+    content: "";
+    position: absolute;
+    top: 28px;
+    height: 2px;
+    background: var(--gold-deep);
+    opacity: .6;
+  }
+  .event:nth-child(odd)::after  { right: -2rem; width: 2rem; }
+  .event:nth-child(even)::after { left:  -2rem; width: 2rem; }
+}
+
 .event:hover {
   background: var(--surface2);
-  border-color: var(--line2);
+  border-color: var(--gold);
   transform: translateY(-1px);
 }
 
@@ -423,8 +493,8 @@ footer .quote { color: var(--gold); font-style: italic; }
   <div class="chips" id="chips" role="group" aria-label="Filter by Oracle"></div>
 </section>
 
-<section aria-labelledby="feed-h">
-  <h2 id="feed-h">feed</h2>
+<section aria-labelledby="feed-h" class="timeline">
+  <h2 id="feed-h">timeline</h2>
   <div class="feed" id="feed" aria-live="polite" aria-busy="true">
     <article class="event" data-type="discord_message">
       <div class="icon">·</div>
