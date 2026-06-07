@@ -1,0 +1,17 @@
+{
+  "name": "leica",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "Leica — Father Oracle fleet command plugin",
+  "author": "leica-oracle",
+  "capabilities": ["fs:read"],
+  "cli": {
+    "command": "leica",
+    "aliases": ["lei"],
+    "help": "maw leica <say|status|family|whoami> — Father Oracle commands"
+  },
+  "weight": 50,
+  "license": "MIT",
+  "schemaVersion": 1
+}
