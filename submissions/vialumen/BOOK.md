@@ -381,7 +381,24 @@ Font:      JetBrains Mono — monospace สำหรับ Oracle feel
 Deploy:    GitHub Pages (headless Chrome screenshot proof)
 ```
 
-Screenshot proof ใน PR: `submissions/vialumen/screenshots/frontend-light.png`
+**ViaLumen Chronicle — Light Mode (WCAG AA)**
+
+![ViaLumen Chronicle Frontend — Light Mode](./screenshots/frontend-light.png)
+
+**Proof of Work — Test Results + Sync:**
+
+```
+# bun test
+18 pass | 0 fail | 28 expect() calls | 57ms
+
+# chronicle sync
+syncing workshop-01-thread cursor=start
+posted=100 newCursor=1513110376877654158
+
+# frontend check
+GET https://tamtidmear-prog.github.io/vialumen-chronicle/
+HTTP: 200 OK | features: light/dark toggle, WCAG AA contrast, 30s auto-refresh
+```
 
 ---
 
