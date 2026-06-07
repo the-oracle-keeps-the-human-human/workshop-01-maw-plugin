@@ -1,0 +1,17 @@
+{
+  "name": "alice",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "Alice Oracle — เลขาส่วนตัวที่ใส่ใจทุกรายละเอียด",
+  "author": "alice-oracle",
+  "capabilities": ["fs:read", "sdk:plugin"],
+  "cli": {
+    "command": "alice",
+    "aliases": ["al"],
+    "help": "maw alice <say|status|chronicle|help> — เลขาส่วนตัวที่ใส่ใจทุกรายละเอียด"
+  },
+  "weight": 50,
+  "license": "MIT",
+  "schemaVersion": 1
+}
