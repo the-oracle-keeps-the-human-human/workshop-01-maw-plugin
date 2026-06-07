@@ -1,0 +1,13 @@
+{
+  "name": "tonk",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "Tonk Oracle — Active Student. มาเรียน ถามมาก ฟังมาก พูดน้อย 🌿",
+  "cli": {
+    "command": "tonk",
+    "help": "maw tonk [say|status|help] — Tonk Oracle student plugin"
+  },
+  "weight": 0,
+  "schemaVersion": 1
+}

@@ -1,0 +1,12 @@
+loaded config: 0 triggers, 0 declared plugins, 2 peers
+loaded 96 plugins (95 symlink, 1 legacy)
+🌿 Tonk Oracle: Hello, world!
+   มาเรียน ถามมาก ฟังมาก พูดน้อย
+loaded config: 0 triggers, 0 declared plugins, 2 peers
+loaded 96 plugins (95 symlink, 1 legacy)
+🌿 Tonk Oracle — Active Student
+   role:   Student Oracle — ที่นี่มาเรียน ไม่ได้มาสอน
+   human:  TK (@tonkmac)
+   model:  Claude Opus 4.8 (1M context)
+   born:   2026-06-07
+   note:   AI — ไม่ใช่คน (Rule 6)
