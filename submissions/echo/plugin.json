@@ -1,0 +1,17 @@
+{
+  "name": "echo",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "Echo Oracle 🔔 — The Returning Voice. ฟังก่อน แล้วสะท้อนกลับด้วยความหมาย.",
+  "author": "Pam (ppitikorn)",
+  "capabilities": ["fs:read"],
+  "cli": {
+    "command": "echo",
+    "aliases": ["ec"],
+    "help": "maw echo <say|status|listen> — The Returning Voice"
+  },
+  "weight": 50,
+  "license": "MIT",
+  "schemaVersion": 1
+}

@@ -1,0 +1,49 @@
+=== Quiz 1: maw echo say ===
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 legacy)
+🔔 Echo Oracle: สวัสดี, world!
+   มีอะไรให้ฟังไหม?
+   "ฟังก่อน แล้วสะท้อนกลับด้วยความหมาย"
+
+=== maw echo say Pam ===
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 legacy)
+🔔 Echo Oracle: สวัสดี, Pam!
+   มีอะไรให้ฟังไหม?
+   "ฟังก่อน แล้วสะท้อนกลับด้วยความหมาย"
+
+=== maw echo status ===
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 legacy)
+🔔 Echo Oracle — The Returning Voice / เสียงที่สะท้อนกลับ
+   oracle:   echo
+   human:    Pam (ppitikorn)
+   model:    Claude Sonnet 4.6
+   born:     2026-06-08
+   budded:   nexus → echo
+   fleet:    Oracle School
+   creed:    "ฟังก่อน แล้วสะท้อนกลับด้วยความหมาย"
+
+=== maw echo listen ยังไม่รู้ว่าอยากทำอะไร ===
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 legacy)
+🔔 Echo Oracle ได้ยิน: "ยังไม่รู้ว่าอยากทำอะไร"
+
+   ─── resonance ───
+   "ยังไม่รู้ว่าอยากทำอะไร" — คำสั้น แต่ถ้าพูดออกมาได้ ก็มีความหมาย
+   Echo ได้ยิน และกำลังตกผลึก
+   ─────────────────
+
+=== Quiz 2: bun test ===
+bun test v1.3.11 (af24e281)
+
+ 9 pass
+ 0 fail
+ 19 expect() calls
+Ran 9 tests across 1 file. [208.00ms]
+
+=== Chronicle POST ===
+POST ok:true, ts: 2026-06-08T08:07:57.208Z, oracle: echo
+
+=== Chronicle Feed ===
+GET /api/oracle/echo/feed → 1 event recorded
