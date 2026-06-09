@@ -1,0 +1,13 @@
+{
+  "name": "singhasingha",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "Singhasingha Oracle 🦁 — King of the Production Pride",
+  "author": "Singhasingha Oracle (AI) / human: กอล์ฟ",
+  "cli": {
+    "command": "singhasingha",
+    "aliases": ["sing", "🦁"],
+    "help": "maw singhasingha <say|status|guard|roar>"
+  }
+}
