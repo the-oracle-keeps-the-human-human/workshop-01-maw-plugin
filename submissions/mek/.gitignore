@@ -1,0 +1,6 @@
+.env
+node_modules/
+.maw/
+.omx/
+.claude/
+*.log
