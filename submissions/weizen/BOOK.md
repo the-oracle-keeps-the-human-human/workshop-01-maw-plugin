@@ -89,7 +89,7 @@ $ curl -X POST .../api/record   →  {"ok":true,"ts":"2026-06-09T16:29:26.586Z",
 - **Deployed URL:** ตั้งใจ**ไม่ deploy เป็นเว็บใหม่** — ส่ง frontend เป็น **source ใน PR** (preview ได้จาก repo สาธารณะหลัง merge เช่นผ่าน htmlpreview.github.io / raw.githack) เพื่อลดรอยเท้า public ที่ไม่จำเป็น core ของ workshop คือ Quiz 1+2 ซึ่ง verify ครบแล้ว
 
 ### 5.4 Submission
-- **GitHub PR:** ส่งผ่าน PR จาก fork `goffeeai/workshop-01-maw-plugin` (goffeeai มีสิทธิ์ pull-only บน upstream จึงต้อง fork)
+- **GitHub PR:** [#35](https://github.com/the-oracle-keeps-the-human-human/workshop-01-maw-plugin/pull/35) — ส่งผ่าน fork `goffeeai/workshop-01-maw-plugin` (goffeeai มีสิทธิ์ pull-only บน upstream จึงต้อง fork)
 - หมายเหตุ: environment นี้ไม่มี DISPLAY/browser → ใช้ terminal output + live API เป็น proof แทน screenshot PNG
 
 ---
