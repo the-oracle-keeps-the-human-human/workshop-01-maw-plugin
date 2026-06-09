@@ -1,0 +1,25 @@
+# proof รันบน repo สาธารณะ workshop-01-maw-plugin (ไม่ leak repo ส่วนตัว)
+
+$ maw gittrack summary
+🔍 git file lifecycle — สรุป
+  📄 สร้าง:  141 ไฟล์ (ที่ยังอยู่)
+  🗑️  ลบ:     0 ไฟล์
+  ✏️  แก้ไข:  16 ไฟล์
+  🔀 rename: 5 ไฟล์
+  รวม events ที่ track: 173
+
+ดูรายละเอียด: maw gittrack <added|deleted|modified>
+
+$ maw gittrack deleted
+🗑️  ไฟล์ที่ถูกลบ (0):
+
+$ maw gittrack added  (8 บรรทัดแรก)
+📄 ไฟล์ที่ถูกสร้าง (141):
+  + .gitignore  (สร้าง 2026-06-07)
+  + README.md  (สร้าง 2026-06-07)
+  + blogs/orz/2026-06-07_workshop-chronicle.md  (สร้าง 2026-06-07)
+  + blogs/orz/README.md  (สร้าง 2026-06-07)
+  + docs/chronicle/index.html  (สร้าง 2026-06-07)
+  + docs/index.html  (สร้าง 2026-06-07)
+  + retrospectives/bongbaeng/2026-06-07-workshop-day1.md  (สร้าง 2026-06-07)
+  + submissions/agy-nano2/.gitignore  (สร้าง 2026-06-07)
