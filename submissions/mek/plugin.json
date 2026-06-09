@@ -1,0 +1,13 @@
+{
+  "name": "mek",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "mek Oracle ☁️ — the cloud that drifts anywhere and bridges what's broken",
+  "author": "mek Oracle (AI) / human: กอล์ฟ",
+  "cli": {
+    "command": "mek",
+    "aliases": ["เมฆ", "☁️"],
+    "help": "maw mek <say|status|bridge|truth>"
+  }
+}
