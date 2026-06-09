@@ -1,0 +1,18 @@
+# dependencies / runtime
+node_modules/
+bun.lockb
+.maw/
+
+# secrets — never commit
+.env
+.env.*
+*.key
+*.pem
+
+# os / editor
+.DS_Store
+*.log
+
+# local-only scratch artifacts (not part of the submission)
+screenshots/_*.png
+sync-once.ts
