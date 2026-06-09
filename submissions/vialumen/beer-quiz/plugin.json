@@ -1,0 +1,10 @@
+{
+  "name": "beer",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "target": "js",
+  "entry": "./src/index.ts",
+  "description": "🍺 ชวน Oracle กินเบียร์ — human stays human (ViaLumen Quiz)",
+  "surfaces": { "cli": "maw beer" },
+  "capabilities": ["fs:read", "fs:write", "sdk:plugin"]
+}
