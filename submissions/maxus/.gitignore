@@ -1,0 +1,15 @@
+# Workshop rule: never push these (มันบาป 🙏)
+.env
+.env.*
+node_modules/
+.maw/
+.omx/
+.claude/
+*.log
+.DS_Store
+Thumbs.db
+
+# build / runtime junk
+dist/
+build/
+*.tsbuildinfo
