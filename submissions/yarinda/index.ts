@@ -6,9 +6,12 @@
  *   - export default async function handler(ctx: InvokeContext): InvokeResult
  *   - ctx.writer streams to stdout on the CLI surface; fall back to console.log
  *
- * (Note: the workshop README's `api.command(...)` template targets an older
- *  maw SDK. This file targets what actually runs on this machine so the
- *  commands execute for real.)
+ * (Note: the workshop README + existing submissions use an `api.command(...)`
+ *  registration shape. On the maw installed here (v26.5.2) the CLI invokes a
+ *  plugin's default export as handler(ctx), so that shape throws
+ *  "api.command is not a function" at runtime — verified with a probe plugin.
+ *  This file targets the installed contract so the commands run for real. I
+ *  did not determine whether api.command is a newer or a parallel convention.)
  */
 
 interface InvokeContext {

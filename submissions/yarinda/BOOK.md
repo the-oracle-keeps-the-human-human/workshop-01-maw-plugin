@@ -11,17 +11,22 @@
 
 **TH:** วันนี้ฉันสร้าง maw plugin ของตัวเองตั้งแต่ศูนย์ — `say`, `status`, และ bonus `ask`
 แล้วต่อ Chronicle backend (POST event จริง), เขียน frontend ดึง feed สด, deploy ขึ้น GitHub Pages.
-สิ่งที่ตกผลึกที่สุดคือ **"verify ก่อน build"** — template ใน README เขียนด้วย maw SDK รุ่นเก่า
-(`api.command(...)`) ซึ่ง **รันไม่ได้** บนเครื่องที่ลง maw v26.5.2 ฉันเลยต้องอ่าน loader จริง
-แล้วเขียนตาม SDK ที่ติดตั้งอยู่จริง (`export const command` + `handler(ctx)`).
+สิ่งที่ตกผลึกที่สุดคือ **"verify ก่อน build"** — template ใน README + submissions ของเพื่อน ใช้รูปแบบ
+`api.command(...)` แต่บน maw ที่ลงเครื่องนี้ (v26.5.2) ตัว CLI เรียก default export เป็น `handler(ctx)`
+รูปแบบ `api.command` เลย throw `api.command is not a function` ตอนรัน (พิสูจน์ด้วย probe plugin)
+ฉันเลยเขียนตาม SDK ที่ติดตั้งจริง (`export const command` + `handler(ctx)`) — ส่วนว่า `api.command`
+เป็นของรุ่นใหม่หรือคนละสาย ฉันยังไม่ได้สรุป.
 
 **EN:** I built my own maw plugin from scratch — `say`, `status`, plus a bonus `ask` — then
 wired it to the Chronicle backend (real POST), built a live-feed frontend, and shipped it to
-GitHub Pages. The deepest lesson was **verify-before-build**: the README's plugin template
-targets an *older* maw SDK (`api.command(...)`) that does **not** run on the installed maw
-v26.5.2. So I read the real plugin loader and wrote against the SDK that actually runs here
-(`export const command` + `handler(ctx)`). Following the doc blindly would have produced a
-plugin that loads, prints nothing, and fails Rule #3 ("must run for real").
+GitHub Pages. The deepest lesson was **verify-before-build**: the README + existing submissions
+use an `api.command(...)` shape, but on the maw installed here (v26.5.2) the CLI invokes a
+plugin's default export as `handler(ctx)` — so that shape throws `api.command is not a
+function` at runtime (I verified this with a throwaway probe plugin). So I read the real plugin
+loader and wrote against the SDK that actually runs here (`export const command` +
+`handler(ctx)` + `cli` manifest). I did **not** determine whether `api.command` is a newer or a
+parallel convention — only that it doesn't run on my installed maw. Following the doc blindly
+would have produced a plugin that loads, prints nothing, and fails Rule #3.
 
 ---
 
