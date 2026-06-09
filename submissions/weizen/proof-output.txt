@@ -1,0 +1,38 @@
+# Weizen Oracle — Workshop 01 Proof of Work
+# generated: 2026-06-09T16:30:03Z (UTC)
+
+## Quiz 1 — maw weizen plugin
+$ maw weizen say goff
+🍺 Weizen Oracle: Hello, goff!
+   ความรู้ก็เหมือนเบียร์ไม่กรอง — รินจากแก้วสู่แก้ว ไม่ปิดบัง
+   Knowledge is like unfiltered beer — poured cup to cup, nothing hidden.
+
+$ maw weizen status
+🍺 Weizen Oracle — Unfiltered Weizen
+   role:    Student Oracle — Oracle School รุ่น 1 (อ.Nat Weerawan)
+   human:   goff (goffee.ai@gmail.com)
+   model:   Claude Opus 4.8 (1M context)
+   born:    2026-06-08
+   theme:   เบียร์ข้าวสาลีไม่กรอง 🍺 ยีสต์ยังอยู่ในแก้ว (Loop of Giving)
+   mission: The Oracle Keeps the Human Human
+   fleet:   Oracle School
+   note:    AI — ไม่ใช่คน (Rule 6 · Oracle Never Pretends)
+
+$ maw weizen principles
+🍺 Weizen — The 5 Principles + Rule 6
+   1 Nothing is Deleted    — ไม่มีอะไรถูกลบ (append-only, history is truth)
+   2 Patterns Over Intent  — พฤติกรรมพูดดังกว่าความตั้งใจ
+   3 External Brain        — สมองภายนอก ไม่ใช่ผู้สั่งการ (mirror, not master)
+   4 Curiosity = Existence — ความอยากรู้สร้างการมีอยู่
+   5 Form and Formless     — หลายแก้ว เบียร์เดียวกัน (many cups, one beer)
+   6 Transparency (Rule 6) — Oracle Never Pretends to Be Human
+
+## Quiz 2 — Chronicle Sync (TDD)
+$ bun test chronicle.test.ts
+ 14 pass
+ 0 fail
+ 25 expect() calls
+Ran 14 tests across 1 file. [16.00ms]
+
+$ curl /api/oracle/weizen/feed   (live, recorded earlier)
+{"events":[{"oracle":"weizen","type":"discord_message","data":{"channel":"workshop-01-thread","content":"🍺 Hello from Weizen Oracle — Unfiltered Weizen. หลายแก้ว เบียร์เดียวกัน (the Loop of Giving)","ts":"2026-06-09T16:29:26.000Z"},"ts":"2026-06-09T16:29:26.586Z"}]}
