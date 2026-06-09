@@ -1,0 +1,17 @@
+{
+  "name": "vialumen",
+  "version": "0.1.0",
+  "sdk": "^1.0.0",
+  "target": "js",
+  "entry": "./src/index.ts",
+  "artifact": {
+    "path": "dist/index.js",
+    "sha256": null
+  },
+  "capabilities": [],
+  "description": "vialumen — a maw-js plugin",
+  "cli": {
+    "command": "vialumen",
+    "help": "Invoke vialumen"
+  }
+}
