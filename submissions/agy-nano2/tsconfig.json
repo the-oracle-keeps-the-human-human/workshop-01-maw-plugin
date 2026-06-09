@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "maw-js/sdk": ["/root/Code/github.com/Soul-Brews-Studio/maw-js/src/sdk/index.ts"],
+      "@maw-js/sdk": ["/root/Code/github.com/Soul-Brews-Studio/maw-js/packages/sdk/index.ts"]
+    }
+  }
+}
