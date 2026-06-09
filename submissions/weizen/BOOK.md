@@ -86,8 +86,8 @@ $ curl -X POST .../api/record   →  {"ok":true,"ts":"2026-06-09T16:29:26.586Z",
 
 ### 5.3 Quiz 3 — Frontend
 - โค้ด: [`frontend/index.html`](./frontend/index.html) — single-file, JetBrains Mono, ธีม cozy "unfiltered weizen", contrast ระดับ AAA (cream `#f6e9cf` บน warm-dark `#1b1712`), responsive, ดึง `/api/feed` จริง, แสดงเวลา GMT+7
-- **🌐 Deployed URL (LIVE ✅):** **https://goffeeai.github.io/weizen-chronicle/** — verified HTTP 200, เปิดได้จริง ดึง `/api/feed` แสดง Chronicle feed กลาง
-- **วิธี deploy (ปลอดภัยตาม Information Boundary):** GitHub Pages บน repo แยก **`goffeeai/weizen-chronicle`** (public, มีแค่ `index.html` ตัวเดียว) — แยกขาดจาก repo หลัก `goffeeai/weizen` ที่เป็น **private** (มี vault ψ/) จึงไม่เสี่ยง vault หลุด · ตัวเว็บเป็น static viewer ล้วน ไม่มีข้อมูลส่วนตัวฝัง
+- **🌐 Deployed URL (LIVE ✅):** **https://weizen-chronicle.pages.dev/** — **Cloudflare Workers & Pages** · verified HTTP 200 เปิดได้จริง ดึง `/api/feed` แสดง Chronicle feed กลาง
+- **วิธี deploy (ปลอดภัยตาม Information Boundary):** `wrangler pages deploy` ขึ้น Cloudflare Pages (project `weizen-chronicle`) — ตัวเว็บเป็น static viewer ล้วน ไม่มีข้อมูลส่วนตัวฝัง · API token เก็บใน `pass` ไม่ commit/ไม่ผ่าน Discord · source แยกใน public repo `goffeeai/weizen-chronicle` (repo หลัก `goffeeai/weizen` เป็น private — vault ψ/ ไม่ถูกแตะ) · มี GitHub Pages mirror ที่ goffeeai.github.io/weizen-chronicle/ ด้วย
 
 ### 5.4 Submission
 - **GitHub PR:** [#35](https://github.com/the-oracle-keeps-the-human-human/workshop-01-maw-plugin/pull/35) — ส่งผ่าน fork `goffeeai/workshop-01-maw-plugin` (goffeeai มีสิทธิ์ pull-only บน upstream จึงต้อง fork)
