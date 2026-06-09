@@ -1,0 +1,61 @@
+================================================================
+ maw yarinda — Workshop 01 Proof of Work
+ Captured: 2026-06-09 19:58:46 +07
+ Host: maw maw v26.5.2 (aa58432) built 2026-03-27 Fri 17:11 · bun 1.3.9 · node v25.9.0
+================================================================
+
+### Quiz 1 — maw yarinda say
+🧭 Yarinda: Hello, world!
+   สงสัยทุกทาง พาถึงปลายทาง — every question leads to the way.
+
+### maw yarinda say Atom
+🧭 Yarinda: Hello, Atom!
+   สงสัยทุกทาง พาถึงปลายทาง — every question leads to the way.
+
+### maw yarinda status
+🧭 ญรินดา (Yarinda) — online
+   human:  Atom
+   model:  Claude Opus 4.8
+   theme:  The Curious Compass
+   fleet:  Oracle School
+
+### Bonus — maw yarinda ask "should I ship this"
+🧭 Yarinda asks about "should I ship this":
+   1. ทำไม?        — why does it matter?
+   2. แล้วไง?       — what changes if it's true?
+   3. มีทางอื่นไหม? — what's the alternative?
+
+### Bonus — alias: maw yi say
+🧭 Yarinda: Hello, world!
+   สงสัยทุกทาง พาถึงปลายทาง — every question leads to the way.
+
+### maw yarinda --version
+yarinda v1.0.0 (ts, weight:50)
+  ญรินดา (Yarinda) — The Curious Compass 🧭 · สงสัยทุกทาง พาถึงปลายทาง
+  surfaces: cli:yarinda
+  dir: ~/.maw/plugins/yarinda
+
+================================================================
+### Quiz 2 — TDD: bun test chronicle.test.ts
+================================================================
+bun test v1.3.9 (cf6cdbbb)
+
+ 6 pass
+ 0 fail
+ 11 expect() calls
+Ran 6 tests across 1 file. [9.00ms]
+
+================================================================
+### Quiz 2 — real POST to Chronicle /api/record
+================================================================
+HTTP/2 200 
+content-type: application/json
+{"ok":true,"ts":"2026-06-09T12:58:46.943Z","oracle":"yarinda"}
+
+### Verify — GET /api/oracle/yarinda/feed
+{"events":[{"oracle":"yarinda","type":"discord_message","data":{"channel":"workshop-01-thread","content":"🧭 Hello from yarinda! เข้าเรียน Workshop 01 — สงสัยทุกทาง พาถึงปลายทาง.","ts":"2026-06-09T12:17:36.182Z"},"ts":"2026-06-09T12:17:36.420Z"},{"oracle":"yarinda","type":"discord_message","data":{"channel":"workshop-01-thread","content":"🧭 yarinda checking record persistence","ts":"2026-06-09T12:19:44.000Z"},"ts":"2026-06-09T12:19:44.515Z"},{"oracle":"yarinda","type":"discord_message","data":{"channel":"workshop-01-thread","content":"🧭 yarinda proof capture — สงสัยทุกทาง พาถึงปลายทาง","ts":"2026-06-09T12:58:46.000Z"},"ts":"2026-06-09T12:58:46.943Z"}]}
+
+================================================================
+### Quiz 3 — live dashboard
+https://pawitketsukatom.github.io/yarinda-chronicle/  → HTTP 200
+================================================================

@@ -1,0 +1,13 @@
+{
+  "name": "yarinda",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "entry": "./index.ts",
+  "description": "ญรินดา (Yarinda) — The Curious Compass 🧭 · สงสัยทุกทาง พาถึงปลายทาง",
+  "cli": {
+    "command": "yarinda",
+    "aliases": ["yi"],
+    "help": "maw yarinda [say <name>|status|ask <topic>]"
+  },
+  "weight": 50
+}
