@@ -1,0 +1,17 @@
+{
+  "name": "argon",
+  "version": "1.1.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "Argon Oracle 🌿 — Noble Stillness for H's engineering + business",
+  "author": "argon-oracle",
+  "capabilities": ["fs:read", "sdk:plugin"],
+  "cli": {
+    "command": "argon",
+    "aliases": ["ar"],
+    "help": "maw argon <say|status|humans|team|principles|workstreams|chronicle|help>"
+  },
+  "weight": 50,
+  "license": "MIT",
+  "schemaVersion": 1
+}

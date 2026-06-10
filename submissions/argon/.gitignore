@@ -1,0 +1,18 @@
+# Per workshop rule: no sensitive files
+.env
+.env.*
+node_modules/
+.maw/
+.omx/
+.claude/
+*.log
+
+# Build artifacts
+dist/
+build/
+*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
