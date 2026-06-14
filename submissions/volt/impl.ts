@@ -101,11 +101,13 @@ export async function cmdVolt(args: string[]): Promise<void> {
     return;
   }
 
+  // FORCE_COLOR=1 → maw hermes emits ANSI even through the execSync pipe (no TTY),
+  // so 🆕 NEW badges + thread colors survive into the watch display. JSON path strips them.
   const hermes = (sub2: string) =>
-    sh(`cd ${JSON.stringify(HERMES_REPO)} && ${MAW} hermes ${sub2} 2>/dev/null`)
-      .replace(/\x1b\[[0-9;]*m/g, "")          // strip ANSI colors
+    sh(`cd ${JSON.stringify(HERMES_REPO)} && FORCE_COLOR=1 ${MAW} hermes ${sub2} 2>/dev/null`)
       .replace(/^loaded.*$/gm, "")
       .split("\n").filter((l) => l.trim()).join("\n");
+  const noAnsi = (s: string) => s.replace(/\x1b\[[0-9;]*m/g, "");
 
   // maw volt channels — list Discord channels/guilds the Hermes bot can see
   if (sub === "channels") {
@@ -128,9 +130,9 @@ export async function cmdVolt(args: string[]): Promise<void> {
         .map((m) => ({ author: m[1], text: m[2].trim() }));
 
     if (json) {
-      // SINGLE SHOT — one poll, JSON envelope
-      const read = hermes(`read ${ch} 15`);
-      const threads = hermes(`threads ${ch} --read`);
+      // SINGLE SHOT — one poll, JSON envelope (ANSI stripped — machine-readable)
+      const read = noAnsi(hermes(`read ${ch} 15`));
+      const threads = noAnsi(hermes(`threads ${ch} --read`));
       const out = {
         channel: ch,
         polled_at: new Date().toISOString(),
@@ -148,7 +150,10 @@ export async function cmdVolt(args: string[]): Promise<void> {
       ? (everyArg.endsWith("m") ? parseInt(everyArg) * 60000 : parseInt(everyArg) * 1000)
       : 30000;
     console.log(`👁️  volt watch — Discord ${ch} every ${everyMs / 1000}s (Ctrl-C to stop)`);
-    console.log(hermes(`read ${ch} 15`)); // initial snapshot
+    console.log("── channel messages ──");
+    console.log(hermes(`read ${ch} 15`));          // initial: channel messages
+    console.log("── threads (full tree) ──");
+    console.log(hermes(`threads ${ch} --read`));   // initial: full indented thread tree (sets baseline)
     // eslint-disable-next-line no-constant-condition
     while (true) {
       await new Promise((r) => setTimeout(r, everyMs));
