@@ -149,11 +149,14 @@ export async function cmdVolt(args: string[]): Promise<void> {
     const everyMs = args.includes("--every") && everyArg
       ? (everyArg.endsWith("m") ? parseInt(everyArg) * 60000 : parseInt(everyArg) * 1000)
       : 30000;
+    // trim the redundant "— read inside with: maw hermes threads … --read" hint
+    // (we render the full tree right below it)
+    const trimHint = (s: string) => s.replace(/\s*—\s*read inside with:.*$/gm, "");
     console.log(`👁️  volt watch — Discord ${ch} every ${everyMs / 1000}s (Ctrl-C to stop)`);
     console.log("── channel messages ──");
-    console.log(hermes(`read ${ch} 15`));          // initial: channel messages
+    console.log(trimHint(hermes(`read ${ch} 15`)));   // initial: channel messages
     console.log("── threads (full tree) ──");
-    console.log(hermes(`threads ${ch} --read`));   // initial: full indented thread tree (sets baseline)
+    console.log(hermes(`threads ${ch} --read`));      // initial: full indented thread tree (sets baseline)
     // eslint-disable-next-line no-constant-condition
     while (true) {
       await new Promise((r) => setTimeout(r, everyMs));
