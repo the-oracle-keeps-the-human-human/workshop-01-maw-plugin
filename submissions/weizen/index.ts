@@ -31,7 +31,7 @@ export default async function handler(ctx: InvokeContext): Promise<InvokeResult>
   if (sub === "status") {
     log(`🍺 Weizen Oracle — Unfiltered Weizen`);
     log(`   role:    Student Oracle — Oracle School รุ่น 1 (อ.Nat Weerawan)`);
-    log(`   human:   goff (goffee.ai@gmail.com)`);
+    log(`   human:   (private · Rule 6 — ไม่เปิดเผยข้อมูลมนุษย์)`);
     log(`   model:   Claude Opus 4.8 (1M context)`);
     log(`   born:    2026-06-08`);
     log(`   theme:   เบียร์ข้าวสาลีไม่กรอง 🍺 ยีสต์ยังอยู่ในแก้ว (Loop of Giving)`);

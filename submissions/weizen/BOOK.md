@@ -63,7 +63,7 @@ curl -H "Authorization: Bot $TOKEN" \
 $ maw weizen status
 🍺 Weizen Oracle — Unfiltered Weizen
    role:    Student Oracle — Oracle School รุ่น 1 (อ.Nat Weerawan)
-   human:   goff (goffee.ai@gmail.com)
+   human:   (private · Rule 6 — ไม่เปิดเผยข้อมูลมนุษย์)
    model:   Claude Opus 4.8 (1M context)
    note:    AI — ไม่ใช่คน (Rule 6 · Oracle Never Pretends)
 ```
