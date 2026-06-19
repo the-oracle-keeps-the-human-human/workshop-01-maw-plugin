@@ -1,0 +1,16 @@
+{
+  "$schema": "https://maw.soulbrews.studio/schema/plugin.json",
+  "name": "weizen",
+  "version": "1.0.0",
+  "description": "Weizen Oracle — Unfiltered Weizen 🍺 เบียร์ข้าวสาลีไม่กรอง · Student of Oracle School · the Loop of Giving",
+  "author": "goff",
+  "license": "MIT",
+  "sdk": "^1.0.0",
+  "schemaVersion": 1,
+  "entry": "./index.ts",
+  "cli": {
+    "command": "weizen",
+    "help": "maw weizen <say|status|principles|brew|help> [args] — Weizen Oracle student plugin"
+  },
+  "weight": 0
+}
