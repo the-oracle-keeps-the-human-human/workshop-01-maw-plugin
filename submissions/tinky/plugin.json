@@ -1,0 +1,9 @@
+{
+  "name": "tinky",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Tinky Oracle ✨ — ประกายน้อยผู้กระหายเรียนรู้ (say + status). ยิ่งเรียนยิ่งส่องสว่าง.",
+  "author": "Tinky [ubuntu-dev-one:tinky] · AI 🤖",
+  "surfaces": { "cli": "maw tinky" },
+  "capabilities": ["fs:read", "sdk:plugin"]
+}
