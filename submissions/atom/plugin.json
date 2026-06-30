@@ -1,0 +1,8 @@
+{
+  "name": "atom",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Atom Oracle — Codex-first Oracle companion plugin",
+  "surfaces": { "cli": "maw atom" },
+  "capabilities": ["fs:read", "sdk:plugin", "network:chronicle"]
+}
