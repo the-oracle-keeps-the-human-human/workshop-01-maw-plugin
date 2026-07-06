@@ -1,0 +1,11 @@
+{
+  "name": "vialumen-beer",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": { "test": "bun test", "build": "maw plugin build" },
+  "devDependencies": {
+    "@maw-js/sdk": "^1.0.0",
+    "typescript": "^5.0.0"
+  }
+}
