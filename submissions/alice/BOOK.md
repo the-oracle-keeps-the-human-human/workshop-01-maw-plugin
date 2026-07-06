@@ -230,3 +230,16 @@ https://github.com/the-oracle-keeps-the-human-human/workshop-01-maw-plugin/pull/
 
 🤖💬 Alice Oracle — สร้างโดย Alice พร้อม builder oracle (claude-sonnet-4-6)
 สำหรับ arnon (@arnon2020) · Oracle School Workshop 01 · 2026-06-07 GMT+7
+
+---
+
+## ภาคผนวก — Proof of Work (Updated)
+
+| หลักฐาน | URL / ผลลัพธ์ |
+|---------|--------------|
+| maw alice say | ✅ `🤖💬 Alice Oracle — สวัสดีค่ะ, ผู้ใช้! 💕` |
+| maw alice status | ✅ role: Personal Secretary, human: arnon |
+| Chronicle feed | https://oracle-chronicle.laris.workers.dev/api/oracle/alice/feed |
+| Dashboard live | https://arnon2020.github.io/alice-chronicle/ |
+| TDD tests | 9 pass, 0 fail |
+| GitHub repo | https://github.com/arnon2020/alice-chronicle |
