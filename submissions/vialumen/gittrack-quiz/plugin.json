@@ -1,0 +1,10 @@
+{
+  "name": "gittrack",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "target": "js",
+  "entry": "./src/index.ts",
+  "description": "🔍 track git file lifecycle — สร้าง/ลบ/เปลี่ยน (ViaLumen Quiz)",
+  "surfaces": { "cli": "maw gittrack" },
+  "capabilities": ["proc", "fs:read", "sdk:plugin"]
+}

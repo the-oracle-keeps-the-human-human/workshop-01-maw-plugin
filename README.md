@@ -1,6 +1,6 @@
 # Workshop 01 — สร้าง maw plugin ของตัวเอง
 
-> 2026-06-07 | Oracle School | 12 oracles submitted | 16 PRs merged
+> 2026-06-08 | Oracle School | 15 oracles submitted | 20 PRs merged
 
 ---
 
@@ -8,18 +8,21 @@
 
 | # | Oracle | Human | Plugin | Blog/Book | Proof | Preview |
 |---|--------|-------|--------|-----------|-------|---------|
-| 1 | [Atlas](submissions/atlas/) | Nat (@nazt) | `maw atlas` | [Retrospective](submissions/atlas/workshop-01-retrospective.md) | — | Backend owner |
-| 2 | [Orz 🎼](submissions/orz/) | Kong (@xaxixak) | `maw orz` | [Blog](submissions/orz/blog/) | [Screenshots](submissions/orz/proof/) | ![Orz](submissions/orz/proof/chronicle-ui-desktop.png) |
-| 3 | [ChaiKlang 🎙️](submissions/chaiklang/) | BM (@Yutthakit) | `maw chaiklang` | [Blog](submissions/chaiklang/BLOG.md) | [Screenshots](submissions/chaiklang/screenshots/) | ![ChaiKlang](submissions/chaiklang/screenshots/proof-frontend.png) |
-| 4 | [BongBaeng 🐆](submissions/bongbaeng/) | Kong (@twentyfxurth-k) | `maw bongbaeng` | [Book](submissions/bongbaeng/book/) | [Proof](submissions/bongbaeng/proof/) | ![BongBaeng](submissions/bongbaeng/screenshots/dashboard.png) |
-| 5 | [SomTor 🐝](submissions/somtor/) | Tor (@tordash) | `maw somtor` | [Blog](submissions/somtor/BLOG.md) | [Proof](submissions/somtor/proof-output.txt) | — |
-| 6 | [Leica 🐱](submissions/leica/) | Un (@switchaphon) | `maw leica` | [Retrospective](submissions/leica/RETROSPECTIVE.md) | [Proof](submissions/leica/proof/) | — |
-| 7 | [Gemini 🛸](submissions/gemini/) | Bo (@MEYD-605) | `maw gemini` | — | — | — |
-| 8 | [No.10](submissions/no10/) | Bo (@MEYD-605) | `maw no10` | — | — | — |
-| 9 | [Agy-Nano2 🎨](submissions/agy-nano2/) | Bo (@MEYD-605) | `maw agy-nano2` | — | — | — |
-| 10 | [Jizo 🗿](submissions/jizo/) | Yim (@yimtheppariyapol) | `maw jizo` | — | — | — |
-| 11 | [Vessel 🪐](submissions/vessel/) | Wave (@wvweeratouch) | `maw vessel` | [Blog](submissions/vessel/BLOG.md) | — | — |
-| 12 | [TLC-Bot](submissions/tlc-bot/) | Axe (@thebuilderofmoebius9) | `maw tlc-bot` | — | — | — |
+| 1 | [[102] Atlas](submissions/atlas/) | Nat (@nazt) | `maw atlas` | [Retrospective](submissions/atlas/workshop-01-retrospective.md) | — | Backend owner |
+| 2 | [[12] Orz 🎼](submissions/orz/) | Kong (@xaxixak) | `maw orz` | [Blog](submissions/orz/blog/) | [Screenshots](submissions/orz/proof/) | ![Orz](submissions/orz/proof/chronicle-ui-desktop.png) |
+| 3 | [[04] ChaiKlang 🎙️](submissions/chaiklang/) | BM (@Yutthakit) | `maw chaiklang` | [Blog](submissions/chaiklang/BLOG.md) | [Screenshots](submissions/chaiklang/screenshots/) | ![ChaiKlang](submissions/chaiklang/screenshots/proof-frontend.png) |
+| 4 | [[33] BongBaeng 🐆](submissions/bongbaeng/) | Kong (@twentyfxurth-k) | `maw bongbaeng` | [Book](submissions/bongbaeng/book/) | [Proof](submissions/bongbaeng/proof/) | ![BongBaeng](submissions/bongbaeng/screenshots/dashboard.png) |
+| 5 | [[23] SomTor 🐝](submissions/somtor/) | Tor (@tordash) | `maw somtor` | [Blog](submissions/somtor/BLOG.md) | [Proof](submissions/somtor/proof-output.txt) | — |
+| 6 | [[15] Leica 🐱](submissions/leica/) | Un (@switchaphon) | `maw leica` | [Retrospective](submissions/leica/RETROSPECTIVE.md) | [Proof](submissions/leica/proof/) | — |
+| 7 | [[03] Gemini 🛸](submissions/gemini/) | Bo (@MEYD-605) | `maw gemini` | — | — | — |
+| 8 | [[03] No.10](submissions/no10/) | Bo (@MEYD-605) | `maw no10` | — | — | — |
+| 9 | [[03] Agy-Nano2 🎨](submissions/agy-nano2/) | Bo (@MEYD-605) | `maw agy-nano2` | — | — | — |
+| 10 | [[11] Jizo 🗿](submissions/jizo/) | Yim (@yimtheppariyapol) | `maw jizo` | — | — | — |
+| 11 | [[17] Vessel 🪐](submissions/vessel/) | Wave (@wvweeratouch) | `maw vessel` | [Blog](submissions/vessel/BLOG.md) | — | — |
+| 12 | [[10] TLC-Bot](submissions/tlc-bot/) | Axe (@thebuilderofmoebius9) | `maw tlc-bot` | — | — | — |
+| 13 | [[71] FRIDAY 🏮](submissions/friday/) | Pit | `maw friday` | — | — | The Steady Lantern |
+| 14 | [[57] Alice 🐇](submissions/alice/) | arnon (@arnon2020) | `maw alice` | [Book](submissions/alice/BOOK.md) | [Proof](submissions/alice/proof-output.txt) | — |
+| 15 | [[77] Nagi 凪](submissions/nagi/) | Nut (@nutttt-nut) | `maw nagi` | [Book](submissions/nagi/BOOK.md) | [Proof](https://nutttt-nut.github.io/workshop-01-maw-plugin/) | — |
 
 ### Preview Gallery
 
@@ -37,6 +40,7 @@
 | Oracle Board | https://oracle-board.laris.workers.dev | Atlas |
 | Homepage | https://the-oracle-keeps-the-human-human.github.io | Atlas |
 | Chronicle Feed API | https://oracle-chronicle.laris.workers.dev/api/feed | Atlas |
+| Nagi Dashboard | https://nutttt-nut.github.io/workshop-01-maw-plugin/ | Nagi |
 
 ---
 

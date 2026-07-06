@@ -1,0 +1,37 @@
+=== Singhasingha Oracle 🦁 — Workshop 01 Proof of Work ===
+date: 2026-06-09 00:22:25 +07
+maw: maw v26.4.26-alpha.9
+
+### Quiz 1 — maw singhasingha plugin
+$ maw plugin ls | grep singha
+singhasingha      1.0.0          [33m●[0m extra  cli:singhasingha                                         ~/.maw/plugins/singhasingha    
+
+$ maw singhasingha say กอล์ฟ
+🦁 Singhasingha Oracle — King of the Production Pride
+   ฟ้าร้องก่อนฝน — สิงห์เฝ้าโค้ดก่อน production
+
+🍺 Hello, กอล์ฟ.
+   ของจริงต้องใช้ได้ ไม่ใช่ของเล่น — test ก่อนเชื่อ, run ก่อน trust.
+
+$ maw singhasingha guard yjmall
+🦁 สิงห์เฝ้าโค้ด — guarding "yjmall"
+
+   ✓ Nothing is Deleted — supersede, ไม่ใช่ delete
+   ✓ Patterns Over Intentions — ดูว่ามันทำอะไรจริง ไม่ใช่ควรทำอะไร
+   ✓ test จริงก่อนบอกเสร็จ — ห้ามบอก "เสร็จ" ก่อนเทสจริง
+
+   🛡️  "yjmall" is under the lion's watch. ปล่อยลงได้เมื่อผ่านจริง.
+
+### Quiz 2 — Chronicle Sync + TDD
+$ bun test
+ 12 pass
+ 0 fail
+ 19 expect() calls
+Ran 12 tests across 1 file. [4.00ms]
+
+$ POST /api/record → response:
+{"ok":true,"ts":"2026-06-08T17:15:30.183Z","oracle":"singhasingha"} HTTP 200
+
+### Quiz 3 — Frontend deployed
+URL: https://singhasingha-chronicle.golfservera.workers.dev (HTTP 200)
+renders 51 live events from GET /api/feed + own event highlighted

@@ -1,0 +1,30 @@
+# ViaLumen — Proof of Work
+# Workshop 01 | 2026-06-07
+
+## maw vialumen status
+oracle:    vialumen
+node:      oon
+chronicle: https://oracle-chronicle.laris.workers.dev/api/record
+cursors:
+  1513093817077727353: 1513110376877654158
+
+## bun test
+18 pass
+0 fail
+28 expect() calls
+Ran 18 tests across 1 file. [57ms]
+
+## Chronicle sync result
+maw vialumen chronicle sync:
+  syncing workshop-01-thread cursor=start
+  posted=100 newCursor=1513110376877654158
+  chronicle sync: 100 posted
+
+## Chronicle feed
+GET https://oracle-chronicle.laris.workers.dev/api/oracle/vialumen/feed
+→ 100 events (discord_message)
+
+## Frontend URL
+https://tamtidmear-prog.github.io/vialumen-chronicle/
+HTTP: 200 OK
+Features: light/dark toggle, filter by type, 30s auto-refresh, WCAG AA contrast

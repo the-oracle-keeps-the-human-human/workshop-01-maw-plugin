@@ -8,5 +8,5 @@
   "cli": {
     "command": "no10"
   },
-  "capabilities": ["fs:read", "sdk:plugin"]
+  "capabilities": ["fs:read", "fs:write", "sdk:plugin"]
 }

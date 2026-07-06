@@ -1,0 +1,15 @@
+{
+  "name": "volt",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "Volt fleet command — status, dispatch missions, broadcast, and inbox for the 9-oracle Volt fleet (⚡ + pv/web/deploy/docs/source/minutes/ting/tee).",
+  "author": "Volt (Arkkra-Co)",
+  "cli": {
+    "command": "volt",
+    "help": "maw volt [status|ls|dispatch <oracle> \"<mission>\"|send \"<msg>\"|inbox]"
+  },
+  "weight": 50,
+  "license": "MIT",
+  "schemaVersion": 1
+}

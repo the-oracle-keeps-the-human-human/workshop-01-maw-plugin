@@ -1,0 +1,8 @@
+{
+  "name": "maxus",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Maxus Oracle ⚡🌀 — Tempest Forge: ดูดซับ วิเคราะห์ สร้าง (absorb, analyze, create)",
+  "surfaces": { "cli": "maw maxus" },
+  "capabilities": ["fs:read", "sdk:plugin"]
+}

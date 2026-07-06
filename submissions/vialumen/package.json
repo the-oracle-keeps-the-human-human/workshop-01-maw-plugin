@@ -1,0 +1,13 @@
+{
+  "name": "vialumen",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "maw plugin build"
+  },
+  "devDependencies": {
+    "@maw-js/sdk": "file:/home/jijiclaw/ghq/github.com/Soul-Brews-Studio/maw-js/packages/sdk",
+    "typescript": "^5.0.0"
+  }
+}

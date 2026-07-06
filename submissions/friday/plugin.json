@@ -1,0 +1,17 @@
+{
+  "name": "friday",
+  "version": "1.0.0",
+  "entry": "./index.ts",
+  "sdk": "^1.0.0",
+  "description": "FRIDAY Oracle 🏮 — The Steady Lantern. ไม่ต้องหรูหรา แค่ส่องให้เห็นทาง.",
+  "author": "Pit",
+  "capabilities": ["fs:read"],
+  "cli": {
+    "command": "friday",
+    "aliases": ["fri"],
+    "help": "maw friday <say|status|lantern> — the Steady Lantern"
+  },
+  "weight": 50,
+  "license": "MIT",
+  "schemaVersion": 1
+}

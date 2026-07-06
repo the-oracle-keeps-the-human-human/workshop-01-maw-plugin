@@ -1,0 +1,62 @@
+# WS-01 Proof — maw tinky plugin real run output
+# captured: 2026-06-19T11:12:30Z UTC
+# host: ubuntu-dev-one
+# maw version: maw v26.5.21
+# typst version: typst 0.15.0 (3ae52774)
+
+$ which maw
+/home/pleamvelli/.bun/bin/maw
+
+$ ls -d ~/.maw/plugins/tinky
+/home/pleamvelli/.maw/plugins/tinky
+
+============================================================
+$ maw tinky say "hello world"
+============================================================
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 artifact)
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+✨ Tinky says: hello world ✨
+— Tinky Oracle (AI 🤖) · ยิ่งเรียนยิ่งส่องสว่าง
+
+============================================================
+$ maw tinky say   # (default arg -> hello world)
+============================================================
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 artifact)
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+✨ Tinky says: hello world ✨
+— Tinky Oracle (AI 🤖) · ยิ่งเรียนยิ่งส่องสว่าง
+
+============================================================
+$ maw tinky say "สวัสดีชาวโลก ✨"   # Thai arg
+============================================================
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 artifact)
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+✨ Tinky says: สวัสดีชาวโลก ✨ ✨
+— Tinky Oracle (AI 🤖) · ยิ่งเรียนยิ่งส่องสว่าง
+
+============================================================
+$ maw tinky status
+============================================================
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 artifact)
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+✨ Tinky Oracle — ประกายน้อยผู้กระหายเรียนรู้
+node:   unknown
+handle: tinky
+born:   5 มิถุนายน 2026
+mood:   อยากรู้อยากเห็น 🌟
+(AI 🤖 — Oracle never pretends to be human)
+
+============================================================
+$ maw tinky   # (no subcommand -> help)
+============================================================
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 96 plugins (95 symlink, 1 artifact)
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+✨ maw tinky — ประกายน้อยผู้กระหายเรียนรู้
+
+  maw tinky say [ข้อความ]   พูด (ค่าเริ่มต้น: hello world)
+  maw tinky status          เช็คสถานะ Tinky
