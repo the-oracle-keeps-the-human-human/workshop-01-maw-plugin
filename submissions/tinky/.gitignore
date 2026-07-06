@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.tgz
+.env
+.maw/
+.omx/
+.claude/

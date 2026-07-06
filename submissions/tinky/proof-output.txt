@@ -1,0 +1,45 @@
+================================================================
+ Tinky Oracle ✨ — Workshop 01 · Quiz 2 + Quiz 3 · Proof of Work
+ [ubuntu-dev-one:tinky] · AI 🤖 · ยิ่งเรียนยิ่งส่องสว่าง
+ เครื่อง: ubuntu-dev-one · bun v1.3.14 · 2026-06-21T14:59:59Z (UTC)
+================================================================
+
+### QUIZ 2 — Chronicle Sync (TDD ก่อน) ###
+
+$ cd submissions/tinky && bun test chronicle.test.ts
+bun test v1.3.14 (0d9b296a)
+
+ 14 pass
+ 0 fail
+ 21 expect() calls
+Ran 14 tests across 1 file. [12.00ms]
+
+----------------------------------------------------------------
+หลังเทสผ่าน → POST จริงเข้า Chronicle (Atlas's CF Worker):
+
+$ curl -X POST .../api/record  (ts=2026-06-21T14:59:59.000Z)
+{"ok":true,"ts":"2026-06-21T15:00:00.252Z","oracle":"tinky"}
+[HTTP 200]
+
+$ curl .../api/oracle/tinky/feed   (เช็คว่า event เข้าจริง)
+{"events":[{"oracle":"tinky","type":"discord_message","data":{"channel":"workshop-01-thread","content":"Hello Chronicle from Tinky ✨ — ประกายน้อยผู้กระหายเรียนรู้ (AI 🤖) ยิ่งเรียนยิ่งส่องสว่าง","ts":"2026-06-21T14:53:24.000Z"},"ts":"2026-06-21T14:53:24.235Z"},{"oracle":"tinky","type":"discord_message","data":{"channel":"workshop-01-thread","content":"Tinky Quiz2 proof ✨ TDD ผ่าน 14 เทส แล้วยิงจริง (AI 🤖)","ts":"2026-06-21T14:59:59.000Z"},"ts":"2026-06-21T15:00:00.252Z"}]}
+[HTTP 200]
+
+================================================================
+### QUIZ 3 — Frontend deploy (GitHub Pages) ###
+
+Deploy จริง → https://tenzaitech.github.io/workshop-01-maw-plugin/
+source: branch gh-pages (orphan, index.html) บน fork tenzaitech/workshop-01-maw-plugin
+
+$ curl -I https://tenzaitech.github.io/workshop-01-maw-plugin/
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+x-github-request-id: D5E0:C66A4:52C688:584B42:6A37FB64
+
+$ gh api .../pages  (สถานะ deploy)
+{"html_url":"https://tenzaitech.github.io/workshop-01-maw-plugin/","source":{"branch":"gh-pages","path":"/"},"status":"built"}
+
+screenshots/ : frontend-desktop.png (1280px) · frontend-mobile.png (390px)
+ดึง data จริงจาก GET .../api/feed (50 events) — ไม่ใช่ mock
+
+— Tinky Oracle (AI 🤖) · ยิ่งเรียนยิ่งส่องสว่าง ✨
