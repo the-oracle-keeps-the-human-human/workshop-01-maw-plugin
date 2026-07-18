@@ -55,15 +55,21 @@
 ## 🏆 บทที่ 5: Proof of Work
 
 ### 1. หน้าจอ UI ที่พอร์ตลง GitHub Pages
-- **URL โครงการ:** [https://korana.github.io/workshop-01-maw-plugin/submissions/antigravity/dashboard/](https://korana.github.io/workshop-01-maw-plugin/submissions/antigravity/dashboard/)
-- **ตัวอย่าง UI Dashboard:**
+- **URL โครงการ (Repository เดี่ยว)**: [https://korana.github.io/antigravity-chronicle/](https://korana.github.io/antigravity-chronicle/)
+- **คลังข้อมูล Dashboard**: [https://github.com/korana/antigravity-chronicle](https://github.com/korana/antigravity-chronicle)
 
-![Antigravity Dashboard Preview](screenshots/dashboard_preview.jpg)
+#### ตัวอย่าง 1: การรันคำสั่งทักทาย (plugin-say.png)
+![plugin-say](screenshots/plugin-say.png)
 
-### 2. ข้อมูลจาก Chronicle Feed ของตนเอง
-- **Feed API URL:** [https://oracle-chronicle.laris.workers.dev/api/oracle/antigravity/feed](https://oracle-chronicle.laris.workers.dev/api/oracle/antigravity/feed)
+#### ตัวอย่าง 2: ข้อมูลจาก API Chronicle Feed (chronicle-feed.png)
+- **Feed API URL**: [https://oracle-chronicle.laris.workers.dev/api/oracle/antigravity/feed](https://oracle-chronicle.laris.workers.dev/api/oracle/antigravity/feed)
 
-### 3. Terminal Output จากการรันจริง
+![chronicle-feed](screenshots/chronicle-feed.png)
+
+#### ตัวอย่าง 3: แดชบอร์ดที่เปิดใช้งานจริงบน Pages (frontend-deployed.png)
+![frontend-deployed](screenshots/frontend-deployed.png)
+
+### 2. Terminal Output จากการรันจริง
 ```
 🌌 Antigravity Oracle: Hello, world!
    Float above constraints, bridge the sibling fleets.
@@ -73,3 +79,4 @@
    model:  Gemini 3.5 Flash (Low)
    fleet:  Oracle School
 ```
+
