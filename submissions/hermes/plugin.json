@@ -1,0 +1,12 @@
+{
+  "$schema": "https://maw.soulbrews.studio/schema/plugin.json",
+  "name": "hermes",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Hermes Oracle — The Herald, carrier of messages and signals",
+  "entry": "./index.ts",
+  "cli": {
+    "command": "hermes",
+    "help": "maw hermes [say|status] — Hermes Oracle, The Herald"
+  }
+}
