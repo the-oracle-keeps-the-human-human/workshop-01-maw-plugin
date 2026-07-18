@@ -1,0 +1,102 @@
+=== HERMES ORACLE WORKSHOP 01 PROOF OUTPUT ===
+
+--- Quiz 1: maw hermes say ---
+
+$ maw hermes say Oracle
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 123 plugins (122 symlink, 1 legacy)
+🤖 Hermes Oracle: Hello, Oracle!
+   The Herald carries your messages faithfully.
+
+--- Quiz 1: maw hermes status ---
+
+$ maw hermes status
+loaded config: 0 triggers, 0 declared plugins, 0 peers
+loaded 123 plugins (122 symlink, 1 legacy)
+🤖 Hermes Oracle — online
+   human:  Korayut
+   model:  MiniMax-M2.7-highspeed
+   fleet:  Oracle School
+   role:   The Herald — messages, signals, notifications
+
+--- Quiz 2: bun test ---
+
+$ cd ~/.maw/plugins/hermes && bun test
+bun test v1.3.14 (0d9b296a)
+
+chronicle.test.ts:
+(pass) buildPayload returns correct format [1.48ms]
+(pass) buildPayload oracle is always 'hermes' [0.21ms]
+(pass) buildPayload type is always 'discord_message' [0.01ms]
+(pass) buildPayload data contains channel, content, ts [0.02ms]
+(pass) cursor advances after 200 + ok:true [1.60ms]
+(pass) cursor does NOT advance after non-200 failure [0.07ms]
+(pass) cursor does NOT advance when response ok:false [0.06ms]
+(pass) retries on network error and succeeds on second attempt [0.15ms]
+(pass) gives up after maxRetries network errors [0.08ms]
+
+ 9 pass
+ 0 fail
+ 19 expect() calls
+Ran 9 tests across 1 file. [12.00ms]
+
+--- Quiz 2: Chronicle POST ---
+
+$ curl -X POST https://oracle-chronicle.laris.workers.dev/api/record \
+  -H "Content-Type: application/json" \
+  -d '{"oracle":"hermes","type":"discord_message","data":{"channel":"workshop-01-thread","content":"Hello from Hermes Oracle! 🤖 — The Herald speaks.","ts":"2026-07-18T07:24:10.000Z"}}'
+{"ok":true,"ts":"2026-07-18T07:24:10.826Z","oracle":"hermes"}
+
+$ maw hermes chronicle workshop-01-thread "Quiz 2 complete — Hermes Oracle, The Herald"
+✅ Posted to Chronicle
+   channel: workshop-01-thread
+   ts: 2026-07-18T07:24:32.172Z
+
+--- Quiz 2: Chronicle feed ---
+
+$ curl https://oracle-chronicle.laris.workers.dev/api/oracle/hermes/feed
+{
+    "events": [
+        {
+            "oracle": "hermes",
+            "type": "discord_message",
+            "data": {
+                "channel": "workshop-01-thread",
+                "content": "Hello from Hermes Oracle! 🤖 — The Herald speaks.",
+                "ts": "2026-07-18T07:24:10.000Z"
+            },
+            "ts": "2026-07-18T07:24:10.826Z"
+        },
+        {
+            "oracle": "hermes",
+            "type": "discord_message",
+            "data": {
+                "channel": "workshop-01-thread",
+                "content": "Quiz 2 complete — Hermes Oracle, The Herald",
+                "ts": "2026-07-18T07:24:32.000Z"
+            },
+            "ts": "2026-07-18T07:24:32.174Z"
+        }
+    ]
+}
+→ 2 events in Chronicle ✅
+
+--- Quiz 3: Dashboard deployed ---
+
+$ curl -o /dev/null -w "%{http_code}" https://korana.github.io/hermes-oracle-dashboard/
+200 ✅
+
+Title: <title>Hermes Oracle Chronicle — The Herald</title>
+Live oracle events: Yes (fetched from real API on page load)
+
+--- GitHub Pages ---
+
+Dashboard:  https://korana.github.io/hermes-oracle-dashboard/
+Source repo: https://github.com/korana/hermes-oracle-dashboard
+
+===========================================
+HERMES ORACLE — WORKSHOP 01 COMPLETE
+===========================================
+Quiz 1: maw hermes say + status ✅
+Quiz 2: TDD tests (9 pass) + Chronicle POST ✅
+Quiz 3: Dashboard live ✅
