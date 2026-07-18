@@ -1,0 +1,12 @@
+{
+  "$schema": "https://maw.soulbrews.studio/schema/plugin.json",
+  "name": "antigravity",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Antigravity Oracle — Float above constraints, bridge the sibling fleets",
+  "entry": "./index.ts",
+  "cli": {
+    "command": "antigravity",
+    "help": "maw antigravity [say|status] — Antigravity Oracle 🌌"
+  }
+}

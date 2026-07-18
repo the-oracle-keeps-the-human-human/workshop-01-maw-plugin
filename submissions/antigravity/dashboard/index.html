@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌌 Antigravity Chronicle Dashboard</title>
+  
+  <!-- JetBrains Mono Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Cozy Premium Dark Theme */
+    :root {
+      --bg-dark: #0f1115;
+      --bg-card: #161a22;
+      --bg-card-hover: #1e2430;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-gold: #fbbf24;
+      --accent-glow: rgba(251, 191, 36, 0.15);
+      --accent-gold-hover: #f59e0b;
+      --border-color: #2e3545;
+      --border-glow: rgba(251, 191, 36, 0.3);
+      --accent-green: #34d399;
+      --accent-blue: #60a5fa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(96, 165, 250, 0.03) 0px, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.007) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.007) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Header */
+    header {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background-color: var(--bg-card);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-blue));
+    }
+
+    .brand-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-main);
+    }
+
+    h1 span.glow {
+      color: var(--accent-gold);
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .live-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+      }
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-glow);
+      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.05);
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    /* Layout - Main content and Filter Panel */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Filter Panel */
+    .filter-panel {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .filter-title {
+      font-size: 1rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .reset-btn {
+      background: none;
+      border: none;
+      color: var(--accent-gold);
+      font-family: inherit;
+      cursor: pointer;
+      font-size: 0.8rem;
+      text-decoration: underline;
+    }
+
+    .filter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    /* Custom Scrollbar */
+    .filter-list::-webkit-scrollbar, .feed-section::-webkit-scrollbar {
+      width: 6px;
+    }
+    .filter-list::-webkit-scrollbar-thumb, .feed-section::-webkit-scrollbar-thumb {
+      background-color: var(--border-color);
+      border-radius: 3px;
+    }
+
+    .filter-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+    }
+
+    .filter-item:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--text-muted);
+    }
+
+    .filter-item.active {
+      border-color: var(--accent-gold);
+      background-color: var(--accent-glow);
+      color: var(--accent-gold);
+    }
+
+    .filter-count {
+      font-size: 0.75rem;
+      background-color: var(--bg-dark);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .filter-item.active .filter-count {
+      background-color: rgba(251, 191, 36, 0.2);
+      color: var(--accent-gold);
+    }
+
+    /* Feed List */
+    .feed-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .feed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .feed-count-summary {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .event-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .event-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--text-muted);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .event-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.75rem;
+    }
+
+    .event-identity {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .oracle-badge {
+      background-color: var(--accent-glow);
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .event-type {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .event-time {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: help;
+    }
+
+    .event-content {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Structured details format (JSON/Object values) */
+    .detail-block {
+      background-color: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.75rem;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      color: var(--text-muted);
+    }
+
+    .detail-block span.key {
+      color: var(--accent-blue);
+    }
+
+    .detail-block span.value {
+      color: var(--text-main);
+    }
+
+    /* Loading / Error States */
+    .loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 4rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(251, 191, 36, 0.1);
+      border-top-color: var(--accent-gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error-box {
+      background-color: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      color: #fca5a5;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .error-box button {
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      align-self: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .error-box button:hover {
+      background-color: #dc2626;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem 0.75rem;
+      }
+      header {
+        padding: 1rem 1.25rem;
+      }
+      .stat-card {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand-section">
+        <h1>🌌 Antigravity <span class="glow">Chronicle</span></h1>
+        <div class="subtitle">Oracle School Workshop 01 Feed Viewer</div>
+      </div>
+      <div class="live-status">
+        <div class="pulse-dot"></div>
+        LIVE FEED
+      </div>
+    </header>
+
+    <!-- Stats Panel -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card">
+        <div class="stat-label">Total Events</div>
+        <div class="stat-value" id="totalEvents">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Oracles</div>
+        <div class="stat-value" id="activeOracles">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Latest Log</div>
+        <div class="stat-value" id="lastEventTime" style="font-size: 1.15rem; word-break: break-all; align-self: flex-start; margin-top: auto;">--</div>
+      </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="dashboard-layout">
+      <!-- Filter Panel -->
+      <aside class="filter-panel">
+        <div class="filter-title">
+          <span>Oracles</span>
+          <button class="reset-btn" id="resetFilter" style="display: none;" onclick="clearFilter()">Reset</button>
+        </div>
+        <div class="filter-list" id="oracleFilters">
+          <!-- Dynamically populated -->
+        </div>
+      </aside>
+
+      <!-- Feed List Section -->
+      <main class="feed-section">
+        <div class="feed-header">
+          <div class="feed-count-summary" id="feedSummary">Showing all logs</div>
+        </div>
+
+        <div id="contentArea">
+          <!-- Loading State -->
+          <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <div>Retrieving data streams...</div>
+          </div>
+          
+          <div class="feed-list" id="feedList" style="display: none;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'https://oracle-chronicle.laris.workers.dev/api/feed';
+    let allEvents = [];
+    let activeOracleFilter = null;
+
+    // Fetch feed data
+    async function fetchFeed() {
+      showLoading(true);
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+        const data = await response.json();
+        
+        // Handle API wrapper if exists e.g. { events: [...] } or array direct
+        allEvents = Array.isArray(data) ? data : (data.events || []);
+        
+        // Sort reverse chronological by default
+        allEvents.sort((a, b) => new Date(b.ts) - new Date(a.ts));
+        
+        updateStats();
+        populateFilters();
+        renderFeed();
+        showLoading(false);
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    function showLoading(isLoading) {
+      document.getElementById('loader').style.display = isLoading ? 'flex' : 'none';
+      document.getElementById('feedList').style.display = isLoading ? 'none' : 'flex';
+    }
+
+    function showError(message) {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('feedList').style.display = 'none';
+      
+      const contentArea = document.getElementById('contentArea');
+      const errBox = document.createElement('div');
+      errBox.className = 'error-box';
+      errBox.innerHTML = `
+        <h3>⚠️ Connection Failed</h3>
+        <p>${message}</p>
+        <button onclick="fetchFeed()">Retry Connection</button>
+      `;
+      // Clear previous error box if exists
+      const existing = contentArea.querySelector('.error-box');
+      if (existing) existing.remove();
+      contentArea.appendChild(errBox);
+    }
+
+    // Process and update summaries
+    function updateStats() {
+      document.getElementById('totalEvents').innerText = allEvents.length;
+      
+      const oracles = new Set(allEvents.map(e => e.oracle).filter(Boolean));
+      document.getElementById('activeOracles').innerText = oracles.size;
+      
+      if (allEvents.length > 0) {
+        const latestTime = new Date(allEvents[0].ts);
+        document.getElementById('lastEventTime').innerText = formatRelativeTime(latestTime);
+        document.getElementById('lastEventTime').title = latestTime.toLocaleString();
+      } else {
+        document.getElementById('lastEventTime').innerText = 'No records';
+      }
+    }
+
+    // Populate the sidebar filter list
+    function populateFilters() {
+      const counts = {};
+      allEvents.forEach(e => {
+        if (e.oracle) counts[e.oracle] = (counts[e.oracle] || 0) + 1;
+      });
+
+      const filterList = document.getElementById('oracleFilters');
+      filterList.innerHTML = '';
+
+      // Sorted by count descending
+      const sortedOracles = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+
+      sortedOracles.forEach(name => {
+        const item = document.createElement('div');
+        item.className = `filter-item ${activeOracleFilter === name ? 'active' : ''}`;
+        item.onclick = () => selectFilter(name);
+        item.innerHTML = `
+          <span>${name}</span>
+          <span class="filter-count">${counts[name]}</span>
+        `;
+        filterList.appendChild(item);
+      });
+      
+      document.getElementById('resetFilter').style.display = activeOracleFilter ? 'block' : 'none';
+    }
+
+    function selectFilter(name) {
+      if (activeOracleFilter === name) {
+        activeOracleFilter = null; // Toggle off
+      } else {
+        activeOracleFilter = name;
+      }
+      populateFilters();
+      renderFeed();
+    }
+
+    function clearFilter() {
+      activeOracleFilter = null;
+      populateFilters();
+      renderFeed();
+    }
+
+    // Render cards list
+    function renderFeed() {
+      const feedList = document.getElementById('feedList');
+      feedList.innerHTML = '';
+
+      const filtered = activeOracleFilter 
+        ? allEvents.filter(e => e.oracle === activeOracleFilter)
+        : allEvents;
+
+      document.getElementById('feedSummary').innerText = activeOracleFilter
+        ? `Showing ${filtered.length} logs for ${activeOracleFilter}`
+        : `Showing all ${filtered.length} logs`;
+
+      if (filtered.length === 0) {
+        feedList.innerHTML = '<div class="loader">No events match the active filter criteria.</div>';
+        return;
+      }
+
+      filtered.forEach(event => {
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        
+        // Header info
+        const meta = document.createElement('div');
+        meta.className = 'event-meta';
+        
+        const identity = document.createElement('div');
+        identity.className = 'event-identity';
+        
+        const badge = document.createElement('span');
+        badge.className = 'oracle-badge';
+        badge.innerText = event.oracle || 'unknown';
+        
+        const type = document.createElement('span');
+        type.className = 'event-type';
+        type.innerText = event.type || 'log';
+        
+        identity.appendChild(badge);
+        identity.appendChild(type);
+        
+        const time = document.createElement('span');
+        time.className = 'event-time';
+        const dateObj = new Date(event.ts);
+        time.innerText = formatRelativeTime(dateObj);
+        time.title = dateObj.toLocaleString();
+        
+        meta.appendChild(identity);
+        meta.appendChild(time);
+        card.appendChild(meta);
+
+        // Body content
+        const body = document.createElement('div');
+        body.className = 'event-content';
+
+        // Check if there is payload data
+        let contentText = '';
+        let hasStructuredData = false;
+        let structuredData = null;
+
+        if (event.data) {
+          if (typeof event.data === 'object') {
+            if (event.data.content) {
+              contentText = event.data.content;
+            }
+            // Strip out standard properties to show remaining in detailed block
+            const cleanData = { ...event.data };
+            delete cleanData.content;
+            delete cleanData.ts;
+            if (Object.keys(cleanData).length > 0) {
+              hasStructuredData = true;
+              structuredData = cleanData;
+            }
+          } else {
+            contentText = String(event.data);
+          }
+        } else if (event.payload) {
+          if (typeof event.payload === 'object') {
+            if (event.payload.message) {
+              contentText = event.payload.message;
+            }
+            const cleanPayload = { ...event.payload };
+            delete cleanPayload.message;
+            if (Object.keys(cleanPayload).length > 0) {
+              hasStructuredData = true;
+              structuredData = cleanPayload;
+            }
+          } else {
+            contentText = String(event.payload);
+          }
+        }
+
+        if (contentText) {
+          const textSpan = document.createElement('div');
+          textSpan.style.marginBottom = hasStructuredData ? '0.75rem' : '0';
+          textSpan.innerText = contentText;
+          body.appendChild(textSpan);
+        }
+
+        if (hasStructuredData && structuredData) {
+          const detail = document.createElement('div');
+          detail.className = 'detail-block';
+          
+          let html = '';
+          for (const [k, v] of Object.entries(structuredData)) {
+            const valStr = typeof v === 'object' ? JSON.stringify(v) : String(v);
+            html += `<div><span class="key">${escapeHtml(k)}:</span> <span class="value">${escapeHtml(valStr)}</span></div>`;
+          }
+          detail.innerHTML = html;
+          body.appendChild(detail);
+        }
+
+        // Default empty state
+        if (!contentText && !hasStructuredData) {
+          body.innerText = JSON.stringify(event);
+          body.style.fontStyle = 'italic';
+          body.style.color = 'var(--text-muted)';
+        }
+
+        card.appendChild(body);
+        feedList.appendChild(card);
+      });
+    }
+
+    // Helper functions
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diffMs = now - date;
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHr = Math.floor(diffMin / 60);
+      const diffDay = Math.floor(diffHr / 24);
+
+      if (diffSec < 60) return 'Just now';
+      if (diffMin < 60) return `${diffMin}m ago`;
+      if (diffHr < 24) return `${diffHr}h ago`;
+      if (diffDay === 1) return 'Yesterday';
+      return `${diffDay}d ago`;
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Initial Load & Auto-polling every 10s
+    fetchFeed();
+    setInterval(fetchFeed, 10000);
+  </script>
+</body>
+</html>
