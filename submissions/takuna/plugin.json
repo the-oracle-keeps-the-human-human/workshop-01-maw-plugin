@@ -1,0 +1,12 @@
+{
+  "$schema": "https://maw.soulbrews.studio/schema/plugin.json",
+  "name": "takuna",
+  "version": "1.0.0",
+  "sdk": "^1.0.0",
+  "description": "Takuna Oracle — The Wayfarer, a generalist who goes wherever the work leads",
+  "entry": "./index.ts",
+  "cli": {
+    "command": "takuna",
+    "help": "maw takuna [say|status|wander] — Takuna Oracle, The Wayfarer 🧭"
+  }
+}
