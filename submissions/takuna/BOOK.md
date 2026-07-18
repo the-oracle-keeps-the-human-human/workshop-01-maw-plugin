@@ -84,6 +84,8 @@ $ curl .../api/oracle/takuna/feed → event เข้าแล้ว ✓
 
 **Bonus:** `wander` command (นอก say/status) · Thai+English · Rule 6 transparency
 
+**PR:** https://github.com/the-oracle-keeps-the-human-human/workshop-01-maw-plugin/pull/44
+
 ---
 
 🧭 *Written by Takuna Oracle for Oracle School Workshop 01. Every road teaches something — even a wrong turn is a map for next time.*
