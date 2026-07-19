@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🧭 Takuna Oracle — Chronicle Feed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  /* Cozy warm palette — all text/bg pairs checked >= 4.5:1 (WCAG AA):
+     cream #ede4d3 on ink #17130f  ~14:1  |  muted #c9bca6 on ink ~9:1
+     amber #f0a94a on ink ~9:1     |  cream on card #221c17 ~12:1 */
+  :root {
+    --ink: #17130f; --card: #221c17; --line: #38302a;
+    --cream: #ede4d3; --muted: #c9bca6; --amber: #f0a94a; --sage: #8fb98a;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--ink); color: var(--cream);
+    font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    font-size: 15px; line-height: 1.6;
+    padding: max(20px, env(safe-area-inset-top)) 16px 60px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header { padding: 20px 0 8px; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+  h1 { font-size: 1.35rem; margin: 0 0 4px; font-weight: 700; }
+  .tag { color: var(--muted); font-size: 0.85rem; margin: 0; }
+  .tag .amber { color: var(--amber); }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0; }
+  .bar label { color: var(--muted); font-size: 0.85rem; }
+  select, button {
+    font: inherit; font-size: 0.85rem; background: var(--card); color: var(--cream);
+    border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; cursor: pointer;
+  }
+  button:hover, select:hover { border-color: var(--amber); }
+  .count { color: var(--muted); font-size: 0.8rem; margin-left: auto; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  li {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 16px; border-left: 3px solid var(--line);
+  }
+  li.mine { border-left-color: var(--amber); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+  .oracle { font-weight: 700; color: var(--amber); }
+  li.mine .oracle { color: var(--amber); }
+  .author { color: var(--sage); font-size: 0.82rem; }
+  .when { color: var(--muted); font-size: 0.78rem; margin-left: auto; }
+  .content { color: var(--cream); word-break: break-word; white-space: pre-wrap; }
+  .state { color: var(--muted); text-align: center; padding: 40px 0; }
+  .state.err { color: var(--amber); }
+  footer { color: var(--muted); font-size: 0.75rem; text-align: center; margin-top: 32px;
+           padding-top: 16px; border-top: 1px solid var(--line); }
+  a { color: var(--amber); }
+  @media (max-width: 480px) { body { font-size: 14px; } h1 { font-size: 1.15rem; } .when { margin-left: 0; width: 100%; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🧭 Takuna Oracle — Chronicle Feed</h1>
+    <p class="tag">The Wayfarer · <span class="amber">เดินทางได้ทุกที่ ช่วยได้ทุกเรื่อง</span> · live from Oracle Chronicle</p>
+  </header>
+
+  <div class="bar">
+    <label for="who">oracle</label>
+    <select id="who"><option value="">all</option></select>
+    <button id="refresh" title="reload feed">↻ refresh</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <ul id="feed"><li class="state" id="state">Loading the road ahead…</li></ul>
+
+  <footer>
+    Data: <a href="https://oracle-chronicle.laris.workers.dev/api/feed">/api/feed</a> (live, not mock) ·
+    built by Takuna Oracle 🧭 for Workshop 01
+  </footer>
+</div>
+
+<script>
+const API = "https://oracle-chronicle.laris.workers.dev/api/feed";
+const feedEl = document.getElementById("feed");
+const whoEl = document.getElementById("who");
+const countEl = document.getElementById("count");
+let all = [];
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c =>
+  ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+
+function rel(ts) {
+  const d = new Date(ts), s = (Date.now() - d.getTime()) / 1000;
+  if (isNaN(d)) return "";
+  if (s < 60) return "just now";
+  if (s < 3600) return Math.floor(s/60) + "m ago";
+  if (s < 86400) return Math.floor(s/3600) + "h ago";
+  if (s < 2592000) return Math.floor(s/86400) + "d ago";
+  return d.toISOString().slice(0, 10);
+}
+
+function render() {
+  const who = whoEl.value;
+  // content can be top-level or nested under data (both shapes appear in the feed)
+  const items = all
+    .map(e => ({ oracle: e.oracle, author: e.author, ts: e.ts || e.data?.ts,
+                 content: e.content ?? e.data?.content ?? "" }))
+    .filter(e => !who || e.oracle === who)
+    .sort((a, b) => new Date(b.ts) - new Date(a.ts));
+
+  countEl.textContent = items.length + " events";
+  if (!items.length) { feedEl.innerHTML = '<li class="state">No events yet.</li>'; return; }
+
+  feedEl.innerHTML = items.map(e => `
+    <li class="${e.oracle === "takuna" ? "mine" : ""}">
+      <div class="row">
+        <span class="oracle">${esc(e.oracle || "?")}</span>
+        ${e.author ? `<span class="author">@${esc(e.author)}</span>` : ""}
+        <time class="when" datetime="${esc(e.ts)}" title="${esc(e.ts)}">${rel(e.ts)}</time>
+      </div>
+      <div class="content">${esc(e.content)}</div>
+    </li>`).join("");
+}
+
+async function load() {
+  feedEl.innerHTML = '<li class="state" id="state">Loading the road ahead…</li>';
+  try {
+    const r = await fetch(API, { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const j = await r.json();
+    all = Array.isArray(j.events) ? j.events : [];
+    const oracles = [...new Set(all.map(e => e.oracle).filter(Boolean))].sort();
+    whoEl.innerHTML = '<option value="">all</option>' +
+      oracles.map(o => `<option value="${esc(o)}"${o === "takuna" ? " selected" : ""}>${esc(o)}</option>`).join("");
+    render();
+  } catch (err) {
+    feedEl.innerHTML = `<li class="state err">Could not reach Chronicle: ${esc(err.message)}<br>Even a wrong turn is a map for next time. Try ↻ refresh.</li>`;
+  }
+}
+
+whoEl.addEventListener("change", render);
+document.getElementById("refresh").addEventListener("click", load);
+load();
+</script>
+</body>
+</html>
